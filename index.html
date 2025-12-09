@@ -1,594 +1,244 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-GT">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#F47C20" />
+  <meta name="theme-color" content="#0EA5E9" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>Viiajo - Accesorios para Viajes</title>
 
-  <!-- Google Fonts -->
+  <title>Viiajo | Maletas, Mochilas y Accesorios de Viaje en Guatemala</title>
+  <meta name="description" content="Maletas, mochilas, organizadores de equipaje, candados TSA, almohadas cervicales, adaptadores universales y todo para viajar cómodo. Precios directos + envío gratis en Ciudad de Guatemala y todo el país.">
+  <meta name="keywords" content="maletas guatemala, mochilas viaje, candados tsa guatemala, organizadores equipaje, almohada cervical, adaptador universal, viiajo">
+
+  <meta property="og:title" content="Viiajo | Maletas y Accesorios de Viaje Guatemala">
+  <meta property="og:description" content="Todo para tus viajes: maletas resistentes, candados TSA, organizadores y más. Envío a todo Guatemala.">
+  <meta property="og:image" content="https://viiajo.rompecabezas.online/img/og-viiajo.jpg">
+  <meta property="og:url" content="https://viiajo.rompecabezas.online/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_GT">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="canonical" href="https://viiajo.rompecabezas.online/" />
+  <link rel="icon" href="img/Viiajo.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/Viiajo.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
-  
-  <!-- Íconos -->
-  <link rel="icon" href="img/Viiajo_LogoConNombrePNGtoICO.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="img/Viiajo_LogoConNombrePNGtoICO.ico" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["Store","LocalBusiness"],
+    "name": "Viiajo",
+    "image": "https://viiajo.rompecabezas.online/img/Viiajo_LogoConNombre.png",
+    "telephone": "+50241084481",
+    "url": "https://viiajo.rompecabezas.online",
+    "description": "Maletas, mochilas y accesorios de viaje en Guatemala. Envíos nacionales.",
+    "address": {"@type": "PostalAddress", "addressCountry": "GT"},
+    "priceRange": "Q",
+    "openingHours": "Mo-Su 08:00-18:00"
+  }
+  </script>
 
   <style>
     :root {
-      --primary: #F47C20;
-      --primary-dark: #00A86F;
-      --accent: #0074B7;
-      --highlight: #FFD447;
-      --text-dark: #1C3F60;
-      --text-soft: #4CAF5C;
-      --bg: #f8f9fb;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --text: #2d2d2d;
-      --text-light: #666;
+      --primary: #0EA5E9;
+      --primary-dark: #0284C7;
+      --accent: #F47C20;
+      --text-dark: #1E293B;
+      --text-soft: #64748B;
       --border: rgba(0,0,0,0.08);
       --shadow: 0 8px 32px rgba(0,0,0,0.08);
       --radius: 16px;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fff8f0 0%, #e6f7ff 100%);
-      color: var(--text-dark);
-      line-height: 1.6;
-      min-height: 100vh;
+      font-family:'Inter',sans-serif;
+      background:linear-gradient(135deg,#E0F2FE 0%,#CCE7FF 100%);
+      color:var(--text-dark);
+      min-height:100vh;
+      -webkit-user-select:none; user-select:none;
     }
+    input,button,[contenteditable]{-webkit-user-select:text;user-select:text}
+    img{-webkit-user-drag:none;pointer-events:none;-webkit-touch-callout:none}
+    .carrusel img,.miniaturas img{pointer-events:auto!important;cursor:pointer}
 
-    /* ===== HEADER & MENU TOGGLE ===== */
-    #toggle-menu {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1001;
-      background: white;
-      border: none;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      color: var(--accent);
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    #toggle-menu:hover {
-      transform: scale(1.1);
-      box-shadow: 0 12px 40px rgba(0, 116, 183, 0.3);
-    }
-
-    /* ===== ASIDE (MENÚ LATERAL) ===== */
-    .wrapper { display: flex; min-height: 100vh; }
-
-    aside {
-      position: fixed;
-      top: 0;
-      left: -300px;
-      width: 300px;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-right: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: left 0.4s ease;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-    }
-
-    aside.abierto { left: 0; }
-
-    aside header {
-      padding: 2rem 1.5rem 1rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-
-    aside .logo {
-      width: 160px;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
-      transition: transform 0.3s ease;
-      border-radius: 20px;
-    }
-
-    aside .logo:hover { transform: scale(1.05); }
-
-    /* ==== NAV CON SCROLL Y BUSCADOR ==== */
-    aside nav {
-      flex: 1;
-      padding: 1rem 1rem 0;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    #buscar-categoria {
-      width: 100%;
-      padding: 0.9rem 1rem;
-      margin-bottom: 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      font-size: 0.95rem;
-      background: white;
-      transition: var(--transition);
-    }
-
-    #buscar-categoria:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(244, 124, 32, 0.2);
-    }
-
-    aside nav::-webkit-scrollbar { width: 6px; }
-    aside nav::-webkit-scrollbar-track { background: transparent; }
-    aside nav::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.2);
-      border-radius: 3px;
-    }
-    aside nav::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
-
-    #menu-categorias { list-style: none; }
-
-    .boton-categoria {
-      display: block;
-      width: 100%;
-      padding: 0.9rem 1.2rem;
-      margin-bottom: 0.5rem;
-      background: var(--card-bg);
-      border: none;
-      border-radius: var(--radius);
-      font-weight: 600;
-      color: var(--text-dark);
-      text-align: left;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      font-size: 0.95rem;
-    }
-
-    .boton-categoria:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(244, 124, 32, 0.3);
-    }
-
-    /* NUEVAS SECCIONES: Datos legales y empresas hermanas */
-    .info-empresa, .empresas-hermanas {
-      padding: 1.2rem 1.5rem;
-      border-top: 1px solid var(--border);
-      background: rgba(248,249,251,0.6);
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-    .info-empresa h4, .empresas-hermanas h4 {
-      color: var(--accent);
-      font-size: 0.95rem;
-      margin-bottom: 0.6rem;
-      font-weight: 600;
-    }
-    .empresas-hermanas img {
-      height: 50px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform .3s;
-    }
-    .empresas-hermanas a:hover img { transform: translateY(-4px); }
-
-    aside footer {
-      padding: 1.5rem;
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-soft);
-      border-top: 1px solid var(--border);
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-    }
-
-    aside footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-
-    #cerrar-menu {
+    /* CINTA AGOTADO MODERNA */
+    .agotado-cinta {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--text-light);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    #cerrar-menu:hover {
-      color: var(--text-dark);
-      transform: rotate(90deg);
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    main {
-      flex: 1;
-      padding: 2rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    #titulo-principal {
+      top: 20px;
+      left: -60px;
+      width: 220px;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
       text-align: center;
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      padding: 10px 0;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transform: rotate(-45deg);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+      z-index: 20;
+      border: 4px solid white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      animation: pulse-agotado 2.5s infinite;
+    }
+    @keyframes pulse-agotado {
+      0%, 100% { transform: rotate(-45deg) scale(1); }
+      50% { transform: rotate(-45deg) scale(1.05); }
     }
 
-    /* ===== SUBCATEGORÍAS (CHIPS) ===== */
-    #subcategorias {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      justify-content: center;
-      margin-bottom: 2rem;
-      padding: 0 1rem;
+    .btn-agotado {
+      background: #e5e7eb !important;
+      color: #9ca3af !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      opacity: 0.7;
     }
 
-    .boton-subcategoria {
-      background: white;
-      border: 1.5px solid var(--border);
-      color: var(--text-dark);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    /* Resto del CSS original (todo igual) */
+    #toggle-menu{position:fixed;top:1rem;left:1rem;z-index:1001;background:white;border:none;width:48px;height:48px;border-radius:50%;font-size:1.5rem;color:var(--primary);box-shadow:var(--shadow);cursor:pointer;transition:var(--transition)}
+    #toggle-menu:hover{transform:scale(1.1)}
+    .wrapper{display:flex;min-height:100vh}
+    aside{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-right:1px solid var(--border);box-shadow:var(--shadow);transition:left .4s;z-index:1000;display:flex;flex-direction:column}
+    aside.abierto{left:0}
+    aside header{padding:2rem 1.5rem 1rem;text-align:center;border-bottom:1px solid var(--border)}
+    aside .logo{width:200px;height:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.1));transition:transform .3s;border-radius:20px}
+    aside .logo:hover{transform:scale(1.05)}
+    aside nav{flex:1;padding:1rem;overflow-y:auto}
+    #buscar-categoria{width:100%;padding:.9rem 1rem;margin-bottom:1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;background:white;transition:var(--transition)}
+    #buscar-categoria:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(14,165,233,.2)}
+    .boton-categoria{display:block;width:100%;padding:.9rem 1.2rem;margin-bottom:.5rem;background:white;border:none;border-radius:var(--radius);font-weight:600;color:var(--text-dark);text-align:left;cursor:pointer;transition:var(--transition);box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .boton-categoria:hover{background:var(--primary);color:white;transform:translateY(-2px)}
+    aside footer{padding:1.5rem;text-align:center;font-size:.85rem;color:var(--text-soft);border-top:1px solid var(--border);background:rgba(255,255,255,.95)}
+    #cerrar-menu{position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-dark)}
+    #cerrar-menu:hover{color:var(--primary);transform:rotate(90deg)}
+    main{flex:1;padding:2rem 1rem;max-width:1200px;margin:0 auto;padding-bottom:100px}
+    #titulo-principal{text-align:center;font-size:2.2rem;font-weight:700;margin-bottom:1rem;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .subtitle-seo{text-align:center;font-size:1.1rem;color:#475569;max-width:900px;margin:0 auto 2rem}
+    #subcategorias{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:2rem}
+    .boton-subcategoria{background:white;border:white;border:1.5px solid var(--border);color:var(--text-dark);padding:.5rem 1rem;border-radius:50px;font-size:.9rem;font-weight:500;cursor:pointer;transition:var(--transition)}
+    .boton-subcategoria:hover,.boton-subcategoria.activo{background:var(--primary);color:white;border-color:var(--primary)}
+    #contenedor-productos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;padding:0 1rem}
+    .producto{background:white;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);border:1px solid var(--border);cursor:pointer;display:flex;flex-direction:column;height:100%}
+    .producto:hover{transform:translateY(-8px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+    .producto .imagen-contenedor{position:relative;width:100%;height:0;padding-bottom:100%;background:white;overflow:hidden;border-bottom:1px solid var(--border)}
+    .producto img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;padding:16px;transition:transform .4s}
+    .producto:hover img{transform:scale(1.08)}
+    .producto .contenido{padding:1rem;display:flex;flex-direction:column;flex-grow:1;justify-content:space-between}
+    .producto h3{font-size:1rem;margin-bottom:.4rem;line-height:1.3}
+    .producto .descripcion{font-size:.84rem;color:#777;margin-bottom:.6rem;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;text-overflow:ellipsis;position:relative;padding-right:55px;cursor:pointer;transition:all .3s;pointer-events:auto!important}
+    .descripcion::after{content:"Ver más";position:absolute;right:0;bottom:0;background:white;padding-left:8px;color:var(--primary);font-weight:600;font-size:.8rem;pointer-events:none}
+    .producto .descripcion.expandida{-webkit-line-clamp:unset;line-clamp:unset;overflow:visible;padding-right:0;margin-bottom:1rem}
+    .producto .descripcion.expandida::after{content:"Ver menos";bottom:-22px;right:0;font-size:.8rem}
+    .producto .precio{font-size:1.25rem;font-weight:700;color:var(--primary);margin:.4rem 0}
+    .producto button{width:100%;padding:.85rem;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;margin-top:auto;font-size:.95rem}
+    #modal-producto{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(12px);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;overflow-y:auto}
+    .modal-contenido{background:white;border-radius:24px;max-width:1000px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4);max-height:95vh;overflow:hidden;display:flex;flex-direction:column}
+    .cerrar-modal{position:absolute;top:15px;right:20px;background:rgba(0,0,0,.5);color:white;border:none;width:50px;height:50px;border-radius:50%;font-size:2rem;cursor:pointer;z-index:10}
+    .cerrar-modal:hover{background:var(--primary);transform:rotate(90deg)}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem;flex:1;overflow-y:auto}
+    .carrusel{aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#f9f9f9;position:relative;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+    .img-modal{width:100%;height:100%;object-fit:contain;background:#f8f9fb}
+    .carrusel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);color:white;border:none;width:56px;height:56px;border-radius:50%;font-size:2rem;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center}
+    .carrusel-btn:hover{background:var(--primary)}
+    .prev{left:16px}.next{right:16px}
+    .miniaturas{display:flex;gap:.6rem;margin-top:1rem;justify-content:center;flex-wrap:wrap;padding:0 1rem}
+    .miniaturas img{width:60px;height:60px;object-fit:cover;border-radius:10px;cursor:pointer;border:3px solid transparent;opacity:.7;transition:.3s}
+    .miniaturas img.activa,.miniaturas img:hover{opacity:1;border-color:var(--primary);transform:scale(1.1)}
+    .precio-modal{font-size:2.1rem;font-weight:700;color:var(--primary);margin:1rem 0}
+    .modal-footer{padding:1.5rem 2rem;background:white;border-top:1px solid var(--border);text-align:center}
+    .btn-agregar-modal{width:100%;padding:1.2rem;background:var(--primary);color:white;border:none;border-radius:16px;font-size:1.2rem;font-weight:600;cursor:pointer;transition:var(--transition)}
+    #carrito-float,#whatsapp-contacto{position:fixed;z-index:999;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;color:white;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:var(--transition)}
+    #carrito-float{bottom:90px;right:1rem;background:var(--accent)}
+    #carrito-float span{position:absolute;top:-8px;right:-8px;background:#e6a800;color:white;font-size:.8rem;font-weight:bold;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;animation:pulse 2s infinite}
+    #whatsapp-contacto{bottom:160px;right:1rem;background:#25D366}
+    #boton-volver{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);color:var(--text-dark);padding:.8rem 1.8rem;border-radius:50px;font-weight:600;font-size:1rem;box-shadow:var(--shadow);backdrop-filter:blur(12px);border:1px solid var(--border);z-index:998;text-decoration:none;transition:var(--transition);display:flex;align-items:center;gap:10px}
+    #boton-volver:hover{background:var(--primary);color:white;transform:translateX(-50%) translateY(-3px)}
+    @media(max-width:480px){
+      main{padding:1.5rem .8rem;padding-bottom:140px}
+      #contenedor-productos{grid-template-columns:1fr;gap:1.2rem}
+      #carrito-float,#whatsapp-contacto{width:56px;height:56px;font-size:1.6rem}
+      #carrito-float{bottom:100px;right:14px}
+      #whatsapp-contacto{bottom:166px;right:14px}
+      #boton-volver{left:auto!important;right:14px!important;bottom:20px!important;transform:none!important}
+      .modal-grid{grid-template-columns:1fr!important}
     }
-
-    .boton-subcategoria:hover,
-    .boton-subcategoria.activo {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(244, 124, 32, 0.3);
-    }
-
-    /* ===== PRODUCTOS ===== */
-    #contenedor-productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
-      padding: 0 1rem;
-    }
-
-    .producto {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
-
-    .producto:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-    }
-
-    .producto .imagen-contenedor {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      background: white;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      pointer-events: none;
-    }
-
-    .producto img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      transition: transform 0.4s ease;
-      padding: 12px;
-      -webkit-user-drag: none;
-      pointer-events: none;
-    }
-
-    .producto:hover img { transform: scale(1.08); }
-
-    .producto .contenido {
-      padding: 1rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
-
-    .producto h3,
-    .producto .descripcion,
-    .producto .precio {
-      pointer-events: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
-
-    .producto .precio {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.8rem;
-    }
-
-    .producto button {
-      width: 100%;
-      padding: 0.75rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 4px 12px rgba(244, 124, 32, 0.3);
-      pointer-events: auto;
-      user-select: auto;
-    }
-
-    .producto button:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 168, 111, 0.4);
-    }
-
-    .sin-resultados {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 3rem;
-      color: var(--text-light);
-      font-size: 1.1rem;
-    }
-
-    /* ===== BOTONES FLOTANTES ===== */
-    #carrito-float, #whatsapp-contacto {
-      position: fixed;
-      z-index: 999;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: white;
-      text-decoration: none;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      transition: var(--transition);
-    }
-
-    #carrito-float {
-      bottom: 90px;
-      right: 1rem;
-      background: var(--highlight);
-    }
-
-    #carrito-float:hover {
-      transform: scale(1.1);
-      background: #f5c02e;
-    }
-
-    #carrito-float span {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: #e6a800;
-      color: white;
-      font-size: 0.8rem;
-      font-weight: bold;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid white;
-      animation: pulse 2s infinite;
-    }
-
-    #whatsapp-contacto {
-      bottom: 160px;
-      right: 1rem;
-      background: #25D366;
-    }
-
-    #whatsapp-contacto:hover {
-      transform: scale(1.1);
-      background: #128C7E;
-    }
-
-    #whatsapp-contacto svg {
-      width: 36px;
-      height: 36px;
-    }
-
-    #boton-volver {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
-      color: var(--text-dark);
-      padding: 0.7rem 1.4rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      z-index: 998;
-    }
-
-    #boton-volver:hover {
-      background: white;
-      transform: translateX(-50%) translateY(-4px);
-      border-color: var(--primary);
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      aside { width: 280px; left: -280px; }
-      main { padding: 1.5rem 0.5rem; }
-      #contenedor-productos {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 1rem;
-      }
-      #titulo-principal { font-size: 1.6rem; }
-    }
-
-    @media (max-width: 480px) {
-      #toggle-menu { width: 44px; height: 44px; font-size: 1.3rem; }
-      #contenedor-productos { grid-template-columns: 1fr; }
-      .boton-subcategoria { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
-    }
-
-    .producto * {
-      -webkit-touch-callout: none;
-      user-select: none;
-    }
-
-    .producto button {
-      user-select: auto;
-      pointer-events: auto;
-    }
-
-    img {
-      -webkit-touch-callout: none;
-      -webkit-user-drag: none;
-      pointer-events: none;
-    }
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
-  <button id="toggle-menu" aria-label="Mostrar menú lateral">
-    <i class="bi bi-list"></i>
-  </button>
+  <button id="toggle-menu" aria-label="Mostrar menú"><i class="bi bi-list"></i></button>
 
   <div class="wrapper">
     <aside>
-      <header>
-        <img src="img/Viiajo_LogoConNombre.png" alt="Rompecabezas de Guatemala" class="logo" />
-      </header>
-
+      <header><img src="img/Viiajo_LogoConNombre.png" alt="Logo Viiajo" class="logo" /></header>
       <nav>
-        <input type="text" id="buscar-categoria" placeholder="Buscar categoría..." aria-label="Buscar categoría">
-        <ul id="menu-categorias" class="menu" role="navigation" aria-label="Categorías"></ul>
+        <input type="text" id="buscar-categoria" placeholder="Busca maleta, mochila, candado...">
+        <ul id="menu-categorias"></ul>
       </nav>
-
-
-      <!-- DATOS LEGALES DE LA EMPRESA -->
-      <!--
-      <div class="info-empresa">
-        <h4>Nuestra empresa</h4>
-        <p style="margin:0.3rem 0;">
-          <strong>Rompecabezas de Guatemala</strong><br>
-          NIT: 1659848-2<br>
-          Ciudad de Guatemala<br>
-          Teléfono: <a href="tel:+50241084481" style="color:var(--primary);">4108-4481</a>
-        </p>
-      </div>
-      -->
-      
-      <!-- EMPRESAS HERMANAS -->
-      <!--
-      <div class="empresas-hermanas">
-        <h4>Empresas hermanas</h4>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
-          <a href="https://vmef1980.github.io/guatecocina/" target="_blank" title="GuateCocina">
-            <img src="img/GuateCocina_LogoConNombre-PNGtoICO.png" alt="GuateCocina">
-          </a>
-          <a href="https://vmef1980.github.io/viiajo/" target="_blank" title="Puzzle Solutions">
-            <img src="img/Viiajo_LogoConNombre.png" alt="Puzzle Solutions">
-          </a>
-        </div>
-      </div>
-      -->
-
-      <!-- FOOTER PROFESIONAL -->
       <footer>
-        <p style="margin:0.3rem 0;font-size: 0.6rem;">© 2025
-          <strong>Rompecabezas de Guatemala</strong><!-- • Todos los derechos reservados -->
+        <p style="margin:0.3rem 0;font-size:0.6rem;">© 2025 <strong>Rompecabezas de Guatemala</strong></p>
+        <p style="margin:0.3rem 0;font-size:0.6rem;">
+          Desarrollado por <strong>Rompecabezas de Guatemala</strong>
+          <a href="https://wa.me/50241084481" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
+            <i class="bi bi-whatsapp" style="font-size:0.85rem;"></i>
+          </a>
         </p>
-        <p style="margin:0.3rem 0;font-size: 0.6rem;">
-          Sitio web desarrollado por <a href="tel:+50241084481">Puzzle Solutions</a>
-        </p>
-        <div style="margin-top:0.8rem;font-size:0.8rem;color:#777;">
-      <!--<a href="politica-privacidad.html">Política de privacidad</a> •  -->
-      <!--<a href="terminos-condiciones.html">Términos y condiciones</a> • --> 
-      <!--<a href="devoluciones.html">Devoluciones</a>                     -->
-        </div>
       </footer>
-
-      <button id="cerrar-menu" aria-label="Ocultar menú lateral">
-        <i class="bi bi-x-lg"></i>
-      </button>
+      <button id="cerrar-menu" aria-label="Cerrar menú"><i class="bi bi-x-lg"></i></button>
     </aside>
 
     <main>
-      <h2 id="titulo-principal">Todos los productos</h2>
-      <section id="subcategorias" class="subcategorias" aria-label="Subcategorías"></section>
-      <section id="contenedor-productos" class="contenedor-productos" aria-label="Listado de productos"></section>
+      <h1 id="titulo-principal">Viiajo – Todo para tus Viajes</h1>
+      <p class="subtitle-seo">
+        Maletas • Mochilas • Organizadores • Candados TSA • Almohadas cervicales • Adaptadores • Precios directos de distribuidor • Envío a todo el país
+      </p>
+      <section id="subcategorias"></section>
+      <section id="contenedor-productos"></section>
     </main>
   </div>
 
-  <!-- BOTONES FLOTANTES -->
-  <a href="carrito.html" id="carrito-float" title="Ver carrito">
-    <i class="bi bi-cart3"></i>
-    <span id="contador-carrito">0</span>
+  <a href="carrito.html" id="carrito-float"><i class="bi bi-cart3"></i><span id="contador-carrito">0</span></a>
+  <a href="https://wa.me/50241084481" id="whatsapp-contacto" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:38px;height:38px;">
   </a>
+  <a href="../index.html" id="boton-volver"><i class="bi bi-house-door-fill"></i> Volver al inicio</a>
 
-  <a href="https://wa.me/50241084481?text=¡Hola!%20Quiero%20más%20info%20sobre%20sus%20productos" 
-   id="whatsapp-contacto" 
-   target="_blank" 
-   title="Chatear por WhatsApp">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:38px;height:38px;">
-  </a>
+  <!-- Modal -->
+  <div id="modal-producto">
+    <div class="modal-contenido">
+      <button class="cerrar-modal" id="cerrar-modal">×</button>
+      <div class="modal-grid">
+        <div class="carrusel-container">
+          <button class="carrusel-btn prev" id="prev-img"><i class="bi bi-chevron-left"></i></button>
+          <button class="carrusel-btn next" id="next-img"><i class="bi bi-chevron-right"></i></button>
+          <div class="carrusel"><img id="img-principal-modal" src="" alt="" class="img-modal"></div>
+          <div class="miniaturas" id="miniaturas"></div>
+        </div>
+        <div class="detalles-producto">
+          <h2 id="modal-titulo"></h2>
+          <p id="modal-descripcion" class="descripcion-modal colapsada"></p>
+          <div class="precio-modal" id="modal-precio"></div>
+          <div class="info-extra">
+            <p><strong>Categoría:</strong> <span id="modal-categoria"></span></p>
+            <p id="linea-codigo" style="display:none;"><strong>Código:</strong> <span id="modal-id"></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-agregar-modal" id="btn-agregar-modal">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
 
-  <a href="https://vmef1980.github.io/rompecabezas/index.html" id="boton-volver" title="Volver atrás">
-    Volver
-  </a>
-
-  <!-- TU SCRIPT ORIGINAL 100% SIN CAMBIOS -->
   <script type="module">
     import { productos } from "./js/productos.js";
+
+    const mostrarCodigoProducto = false;
 
     const menu = document.querySelector("#menu-categorias");
     const subcategorias = document.querySelector("#subcategorias");
@@ -598,83 +248,79 @@
     const cerrarMenu = document.getElementById("cerrar-menu");
     const aside = document.querySelector("aside");
     const contadorCarrito = document.getElementById("contador-carrito");
-    const buscador = document.getElementById("buscar-categoria");
+    const modal = document.getElementById("modal-producto");
+    const descripcionModal = document.getElementById("modal-descripcion");
+    const btnAgregarModal = document.getElementById("btn-agregar-modal");
+    const lineaCodigo = document.getElementById("linea-codigo");
+    const urlLimpia = location.pathname;
 
-    if (localStorage.getItem("menuAbierto") === "true") {
-      aside.classList.add("abierto");
-    }
+    let productoActual = null;
+    let indiceActual = 0;
 
-    toggleMenu.addEventListener("click", () => {
-      aside.classList.add("abierto");
-      localStorage.setItem("menuAbierto", "true");
-    });
+    // Menú lateral
+    if (localStorage.getItem("menuAbierto") === "true") aside.classList.add("abierto");
+    toggleMenu.onclick = () => { aside.classList.add("abierto"); localStorage.setItem("menuAbierto", "true"); };
+    cerrarMenu.onclick = () => { aside.classList.remove("abierto"); localStorage.setItem("menuAbierto", "false"); };
 
-    cerrarMenu.addEventListener("click", () => {
-      aside.classList.remove("abierto");
-      localStorage.setItem("menuAbierto", "false");
-    });
-
-    buscador?.addEventListener("input", function(e) {
+    // Búsqueda
+    document.getElementById("buscar-categoria").addEventListener("input", e => {
       const texto = e.target.value.toLowerCase().trim();
-      document.querySelectorAll(".boton-categoria").forEach(btn => {
-        const nombre = btn.textContent.toLowerCase();
-        btn.style.display = nombre.includes(texto) ? "block" : "none";
-      });
+      if (texto === "") {
+        titulo.textContent = "Viiajo – Todo para tus Viajes";
+        subcategorias.innerHTML = "";
+        cargarProductos(productos);
+        return;
+      }
+      const resultados = productos.filter(p => 
+        p.titulo.toLowerCase().includes(texto) ||
+        (p.descripcion && p.descripcion.toLowerCase().includes(texto))
+      );
+      titulo.textContent = resultados.length > 0 
+        ? `Resultados para: "${e.target.value}" (${resultados.length})`
+        : `No se encontraron productos para: "${e.target.value}"`;
+      cargarProductos(resultados);
+      subcategorias.innerHTML = "";
     });
 
+    // Categorías
     const categorias = [...new Set(productos.map(p => p.categoria.id))];
-
     categorias.forEach(cat => {
       const btn = document.createElement("button");
       btn.className = "boton-categoria";
       btn.textContent = cat.replace(/_/g, " ");
-      btn.setAttribute("aria-label", `Filtrar por ${btn.textContent}`);
-      btn.onclick = () => mostrarCategoria(cat);
+      btn.onclick = () => {
+        titulo.textContent = cat.replace(/_/g, " ");
+        cargarProductos(productos.filter(p => p.categoria.id === cat));
+        mostrarSubcategorias(cat);
+        aside.classList.remove("abierto");
+        document.getElementById("buscar-categoria").value = "";
+      };
       menu.appendChild(btn);
     });
 
-    function mostrarCategoria(catId) {
-      const nombre = catId.replace(/_/g, " ");
-      titulo.textContent = nombre;
-      const filtrados = productos.filter(p => p.categoria.id === catId);
-      cargarProductos(filtrados);
-      mostrarSubcategorias(catId);
-      window.scrollTo({ top: titulo.offsetTop - 100, behavior: "smooth" });
-      aside.classList.remove("abierto");
-      localStorage.setItem("menuAbierto", "false");
-    }
-
     function mostrarSubcategorias(catId) {
-      const subs = [...new Set(productos
-        .filter(p => p.categoria.id === catId && p.subcategoria)
-        .map(p => p.subcategoria.id))];
-
+      const subs = [...new Set(productos.filter(p => p.categoria.id === catId && p.subcategoria).map(p => p.subcategoria.id))];
       subcategorias.innerHTML = "";
-      if (subs.length === 0) return;
+      if (!subs.length) return;
 
       const btnTodos = document.createElement("button");
       btnTodos.className = "boton-subcategoria activo";
       btnTodos.textContent = "Todos";
       btnTodos.onclick = () => {
-        titulo.textContent = catId.replace(/_/g, " ");
+        document.querySelectorAll(".boton-subcategoria").forEach(b => b.classList.remove("activo"));
+        btnTodos.classList.add("activo");
         cargarProductos(productos.filter(p => p.categoria.id === catId));
-        document.querySelectorAll('.boton-subcategoria').forEach(b => b.classList.remove('activo'));
-        btnTodos.classList.add('activo');
       };
       subcategorias.appendChild(btnTodos);
 
-      subs.forEach(subId => {
+      subs.forEach(sub => {
         const btn = document.createElement("button");
         btn.className = "boton-subcategoria";
-        btn.textContent = subId.replace(/_/g, " ");
+        btn.textContent = sub.replace(/_/g, " ");
         btn.onclick = () => {
-          const filtrados = productos.filter(p =>
-            p.categoria.id === catId && p.subcategoria?.id === subId
-          );
-          titulo.textContent = btn.textContent;
-          cargarProductos(filtrados);
-          document.querySelectorAll('.boton-subcategoria').forEach(b => b.classList.remove('activo'));
-          btn.classList.add('activo');
+          document.querySelectorAll(".boton-subcategoria").forEach(b => b.classList.remove("activo"));
+          btn.classList.add("activo");
+          cargarProductos(productos.filter(p => p.categoria.id === catId && p.subcategoria?.id === sub));
         };
         subcategorias.appendChild(btn);
       });
@@ -683,63 +329,174 @@
     function cargarProductos(lista) {
       contenedor.innerHTML = "";
       if (!lista.length) {
-        contenedor.innerHTML = `<div class="sin-resultados"><p>No hay productos disponibles.</p></div>`;
+        contenedor.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#666;"><p>No hay productos disponibles.</p></div>`;
         return;
       }
 
       lista.forEach(p => {
+        const agotado = p.disponible === false;
+
         const div = document.createElement("div");
         div.className = "producto";
         div.innerHTML = `
           <div class="imagen-contenedor">
-            <img src="${p.imagen || 'img/placeholder.png'}" alt="${p.titulo}" loading="lazy" />
+            ${agotado ? '<div class="agotado-cinta">AGOTADO</div>' : ''}
+            <img src="${p.imagen || 'img/placeholder.png'}" alt="${p.titulo}" loading="lazy">
           </div>
           <div class="contenido">
-            <h3>${p.titulo}</h3>
-            <p class="descripcion">${p.descripcion}</p>
-            <p class="precio">Q${p.precio.toFixed(2)}</p>
-            <button class="agregar-carrito" data-id="${p.id}">Agregar</button>
+            <h3 style="color:${agotado ? '#dc2626' : 'inherit'}">${p.titulo}</h3>
+            <p class="descripcion">${p.descripcion || "Sin descripción"}</p>
+            <p class="precio" style="color:${agotado ? '#94a3b8' : 'var(--primary)'}">Q${p.precio.toFixed(2)}</p>
+            <button class="agregar-carrito ${agotado ? 'btn-agotado' : ''}" 
+                    data-id="${p.id}" ${agotado ? 'disabled' : ''}>
+              ${agotado ? 'Sin stock' : 'Agregar'}
+            </button>
           </div>
         `;
         contenedor.appendChild(div);
       });
-    }
 
-    document.addEventListener("click", e => {
-      if (e.target.classList.contains("agregar-carrito")) {
-        const id = e.target.dataset.id;
-        const producto = productos.find(p => p.id === id);
-        if (producto) {
-          const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      // Ver más/menos descripción
+      document.querySelectorAll(".descripcion").forEach(desc => {
+        desc.onclick = e => { e.stopPropagation(); desc.classList.toggle("expandida"); };
+      });
+
+      // Botones agregar al carrito (solo los disponibles)
+      document.querySelectorAll(".agregar-carrito").forEach(btn => {
+        if (btn.disabled) return;
+        btn.onclick = e => {
+          e.stopPropagation();
+          const producto = productos.find(p => p.id === btn.dataset.id);
+          const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
           carrito.push(producto);
           localStorage.setItem("carrito", JSON.stringify(carrito));
           contadorCarrito.textContent = carrito.length;
-          contadorCarrito.style.animation = "pulse 0.6s ease";
-          setTimeout(() => contadorCarrito.style.animation = "", 600);
-        }
+          btn.textContent = "Agregado";
+          btn.style.background = "#00A86F";
+          setTimeout(() => { btn.textContent = "Agregar"; btn.style.background = ""; }, 1500);
+        };
+      });
+    }
+
+    // Abrir modal
+    document.addEventListener("click", e => {
+      const card = e.target.closest(".producto");
+      if (!card || e.target.closest(".descripcion") || e.target.closest(".agregar-carrito")) return;
+
+      const id = card.querySelector(".agregar-carrito")?.dataset.id;
+      productoActual = productos.find(p => p.id === id);
+      if (!productoActual) return;
+
+      document.getElementById("modal-titulo").textContent = productoActual.titulo;
+      document.getElementById("modal-descripcion").textContent = productoActual.descripcion || "Sin descripción.";
+      document.getElementById("modal-precio").textContent = `Q${productoActual.precio.toFixed(2)}`;
+      document.getElementById("modal-categoria").textContent = productoActual.categoria.id.replace(/_/g, " ");
+
+      if (mostrarCodigoProducto) {
+        document.getElementById("modal-id").textContent = productoActual.id;
+        lineaCodigo.style.display = "block";
+      } else {
+        lineaCodigo.style.display = "none";
       }
+
+      descripcionModal.classList.add("colapsada");
+      descripcionModal.classList.remove("expandida");
+
+      const imagenes = Array.isArray(productoActual.imagenes) ? productoActual.imagenes : [productoActual.imagen || "img/placeholder.png"];
+      indiceActual = 0;
+      document.getElementById("img-principal-modal").src = imagenes[0];
+      generarMiniaturas(imagenes);
+
+      // BOTÓN DEL MODAL BLOQUEADO CORRECTAMENTE
+      const disponible = productoActual.disponible !== false;
+      btnAgregarModal.disabled = !disponible;
+      btnAgregarModal.textContent = disponible ? "Agregar al carrito" : "Sin stock";
+      btnAgregarModal.style.background = disponible ? "" : "#e5e7eb";
+      btnAgregarModal.style.color = disponible ? "" : "#9ca3af";
+      btnAgregarModal.style.cursor = disponible ? "pointer" : "not-allowed";
+      btnAgregarModal.style.pointerEvents = disponible ? "" : "none";
+
+      btnAgregarModal.onclick = disponible ? () => {
+        const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+        carrito.push(productoActual);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        contadorCarrito.textContent = carrito.length;
+        btnAgregarModal.textContent = "¡Agregado!";
+        btnAgregarModal.style.background = "#00A86F";
+        setTimeout(() => {
+          btnAgregarModal.textContent = "Agregar al carrito";
+          btnAgregarModal.style.background = "";
+        }, 1500);
+      } : null;
+
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      history.pushState({ modalAbierto: true }, '', '#producto');
     });
 
+    function generarMiniaturas(arr) {
+      const container = document.getElementById("miniaturas");
+      container.innerHTML = "";
+      arr.forEach((src, i) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.onclick = e => {
+          e.stopPropagation();
+          indiceActual = i;
+          document.getElementById("img-principal-modal").src = src;
+          document.querySelectorAll(".miniaturas img").forEach(img => img.classList.remove("activa"));
+          img.classList.add("activa");
+        };
+        if (i === 0) img.classList.add("activa");
+        container.appendChild(img);
+      });
+    }
+
+    // Navegación carrusel
+    document.getElementById("prev-img").onclick = e => {
+      e.stopPropagation();
+      const imgs = Array.isArray(productoActual.imagenes) ? productoActual.imagenes : [productoActual.imagen];
+      indiceActual = (indiceActual - 1 + imgs.length) % imgs.length;
+      document.getElementById("img-principal-modal").src = imgs[indiceActual];
+    };
+    document.getElementById("next-img").onclick = e => {
+      e.stopPropagation();
+      const imgs = Array.isArray(productoActual.imagenes) ? productoActual.imagenes : [productoActual.imagen];
+      indiceActual = (indiceActual + 1) % imgs.length;
+      document.getElementById("img-principal-modal").src = imgs[indiceActual];
+    };
+
+    // Cerrar modal
+    window.addEventListener('popstate', () => {
+      if (modal.style.display === "flex") {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+        history.replaceState({}, '', urlLimpia);
+      }
+    });
+    document.getElementById("cerrar-modal").onclick = () => {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+      history.replaceState({}, '', urlLimpia);
+    };
+    modal.onclick = e => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+        history.replaceState({}, '', urlLimpia);
+      }
+    };
+
+    // Ver más/menos en modal
+    descripcionModal.onclick = e => {
+      e.stopPropagation();
+      descripcionModal.classList.toggle("colapsada");
+      descripcionModal.classList.toggle("expandida");
+    };
+
+    // Carga inicial
     cargarProductos(productos);
-    contadorCarrito.textContent = (JSON.parse(localStorage.getItem("carrito")) || []).length;
-
-    document.addEventListener('contextmenu', e => {
-      if (e.target.closest('.producto')) {
-        e.preventDefault();
-      }
-    });
-
-    document.addEventListener('dragstart', e => {
-      if (e.target.tagName === 'IMG') {
-        e.preventDefault();
-      }
-    });
-
-    document.addEventListener('selectstart', e => {
-      if (e.target.closest('.producto')) {
-        e.preventDefault();
-      }
-    });
+    contadorCarrito.textContent = (JSON.parse(localStorage.getItem("carrito") || "[]")).length;
   </script>
 </body>
 </html>

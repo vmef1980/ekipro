@@ -1,7 +1,4 @@
-// productos.js - Generado automáticamente el 09/12/2025 10:16
-// No editar manualmente → se sobrescribe con el script Python
-
-export const productos = [
+[
     {
         "id": "LUG-FANCY-20-CELESTE",
         "titulo": "MALETA FANCY CELESTE",
@@ -3067,4 +3064,4 @@ export const productos = [
             "https://ekiipa.com/wp-content/uploads/2024/04/WASHBAG-MINI.avif"
         ]
     }
-];
+]
