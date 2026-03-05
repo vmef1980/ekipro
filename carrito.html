@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="theme-color" id="meta-theme-color" content="#F47C20" />
-  <title id="page-title">Carrito | GuateCocina</title>
+  <title id="page-title">Cargando...</title>
 
-  <link rel="icon" id="favicon" href="img/GuateCocina.ico" type="image/x-icon">
+  <link rel="icon" id="js-favicon" href="" type="image/x-icon">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
   
   <style>
+    /* VARIABLES CSS - Se actualizan automáticamente desde el script */
     :root {
       --primary: #F47C20;
       --primary-dark: #e06b10;
@@ -36,209 +37,49 @@
       line-height: 1.6;
     }
 
-    .c {
-      max-width: 700px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-    }
+    .c { max-width: 700px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    header { background: white; padding: 2rem 1rem; text-align: center; border-bottom: 1px solid var(--border); }
+    header img.logo { width: 150px; margin-bottom: 0.5rem; border-radius: 12px; }
+    header h1 { font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--primary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-    header {
-      background: white;
-      padding: 2rem 1rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    header img.logo {
-      width: 150px;
-      margin-bottom: 0.5rem;
-      border-radius: 12px;
-    }
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    /* PRODUCTOS EN LISTA */
-    .i {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.2rem;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-    .img-wrap {
-      width: 80px;
-      height: 80px;
-      flex-shrink: 0;
-      position: relative;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .i { display: flex; align-items: center; gap: 1rem; padding: 1.2rem; border-bottom: 1px solid var(--border); position: relative; }
+    .img-wrap { width: 80px; height: 80px; flex-shrink: 0; position: relative; background: #fff; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
     .i img { width: 90%; height: 90%; object-fit: contain; }
-    
     .info { flex-grow: 1; }
     .info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; color: var(--text-dark); }
     .pr { color: var(--primary); font-weight: 700; font-size: 1.1rem; }
     
-    /* CONTROLES DE CANTIDAD (STEPPER) */
-    .stepper {
-      display: flex;
-      align-items: center;
-      background: #f8f9fa;
-      border-radius: 50px;
-      padding: 4px;
-      border: 1px solid var(--border);
-    }
-    .stepper button {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: none;
-      background: white;
-      color: var(--text-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
+    .stepper { display: flex; align-items: center; background: #f8f9fa; border-radius: 50px; padding: 4px; border: 1px solid var(--border); }
+    .stepper button { width: 32px; height: 32px; border-radius: 50%; border: none; background: white; color: var(--text-dark); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     .stepper button:hover { background: var(--primary); color: white; }
     .stepper button.del:hover { background: #e74c3c; }
-    .stepper .count {
-      width: 35px;
-      text-align: center;
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
+    .stepper .count { width: 35px; text-align: center; font-weight: 700; font-size: 0.9rem; }
 
-    /* SECCIONES DE FORMULARIO */
-    .se {
-      background: #fcfcfc;
-      padding: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .se h3 {
-      margin-bottom: 1rem;
-      color: var(--text-dark);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .se { background: #fcfcfc; padding: 1.5rem; border-top: 1px solid var(--border); }
+    .se h3 { margin-bottom: 1rem; color: var(--text-dark); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
     
-    select, textarea {
-      width: 100%;
-      padding: 0.9rem;
-      border-radius: 12px;
-      border: 1.5px solid var(--border);
-      font-family: inherit;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-      transition: var(--transition);
-    }
-    select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(244,124,32,0.1);
-    }
+    select, textarea, input.field-text { width: 100%; padding: 0.9rem; border-radius: 12px; border: 1.5px solid var(--border); font-family: inherit; font-size: 0.95rem; margin-bottom: 1rem; transition: var(--transition); display: block; }
+    select:focus, textarea:focus, input.field-text:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(244,124,32,0.1); }
 
-    .op {
-      margin-bottom: 0.8rem;
-      padding: 0.8rem;
-      background: white;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      cursor: pointer;
-    }
+    .op { margin-bottom: 0.8rem; padding: 0.8rem; background: white; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; }
     .op label { cursor: pointer; display: flex; align-items: center; gap: 10px; width: 100%; }
     .op input[type="radio"] { accent-color: var(--primary); width: 18px; height: 18px; }
 
-    .n {
-      padding: 0.9rem;
-      background: #eef7ff;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      color: var(--accent);
-      border-left: 4px solid var(--accent);
-    }
+    .n { padding: 0.9rem; background: #eef7ff; border-radius: 12px; font-size: 0.85rem; color: var(--accent); border-left: 4px solid var(--accent); margin-bottom: 1rem; }
 
-    /* RESUMEN */
-    .r {
-      background: #f8f9fa;
-      padding: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .l {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      color: var(--text-soft);
-    }
-    .tot {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      border-top: 2px dashed var(--border);
-      padding-top: 1rem;
-      margin-top: 1rem;
-    }
+    .r { background: #f8f9fa; padding: 1.5rem; border-top: 1px solid var(--border); }
+    .l { display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: var(--text-soft); }
+    .tot { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); border-top: 2px dashed var(--border); padding-top: 1rem; margin-top: 1rem; }
     .tot strong { color: var(--primary); }
 
-    /* BOTONES */
-    .btn {
-      display: block; width: calc(100% - 2.4rem); margin: 1rem 1.2rem;
-      padding: 1.1rem; border-radius: 14px;
-      font-size: 1.1rem; font-weight: 700;
-      text-align: center; border: none; cursor: pointer;
-      transition: var(--transition);
-      background: var(--success); color: white;
-      box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
-    }
+    .btn { display: block; width: calc(100% - 2.4rem); margin: 1rem 1.2rem; padding: 1.1rem; border-radius: 14px; font-size: 1.1rem; font-weight: 700; text-align: center; border: none; cursor: pointer; transition: var(--transition); background: var(--success); color: white; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2); }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3); }
     
-    .btn-vaciar {
-      display: block; width: calc(100% - 2.4rem); margin: 0 1.2rem;
-      padding: 0.8rem; background: none; color: #999;
-      border: none; font-size: 0.9rem; cursor: pointer;
-      text-decoration: underline;
-    }
+    .btn-vaciar { display: block; width: calc(100% - 2.4rem); margin: 0 1.2rem; padding: 0.8rem; background: none; color: #999; border: none; font-size: 0.9rem; cursor: pointer; text-decoration: underline; }
 
-    #boton-volver {
-      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
-      background: white; padding: 0.8rem 1.5rem; border-radius: 30px;
-      box-shadow: var(--shadow); text-decoration: none; color: var(--text-dark);
-      font-weight: 600; z-index: 998; border: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px;
-      cursor: pointer;
-    }
+    #boton-volver { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: white; padding: 0.8rem 1.5rem; border-radius: 30px; box-shadow: var(--shadow); text-decoration: none; color: var(--text-dark); font-weight: 600; z-index: 998; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px; cursor: pointer; }
 
-    footer {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
-      padding: 1rem; text-align: center; border-top: 1px solid var(--border);
-    }
-
-    @media (max-width:480px) {
-      body { padding: 1rem 0.5rem 180px; }
-      header h1 { font-size: 1.5rem; }
-      .i { padding: 0.8rem; }
-      .img-wrap { width: 65px; height: 65px; }
-      .info h3 { font-size: 0.85rem; }
-    }
+    footer { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 1rem; text-align: center; border-top: 1px solid var(--border); }
   </style>
 </head>
 <body>
@@ -253,11 +94,16 @@
 
     <div id="lleno" style="display:none">
       <div class="se">
+        <h3><i class="bi bi-person-badge"></i> Datos del Cliente <small style="color:red; font-size:0.7rem; margin-left:5px;">(Obligatorios)</small></h3>
+        <input type="text" id="nombre_cliente" class="field-text" placeholder="Nombre completo *">
+        <input type="tel" id="telefono_cliente" class="field-text" placeholder="Teléfono / WhatsApp *">
+        <textarea id="direccion_cliente" rows="2" placeholder="Dirección exacta de entrega (Calle, Casa, Zona...) *"></textarea>
+
         <h3><i class="bi bi-geo-alt"></i> Zona de Entrega</h3>
         <select id="zona">
           <option value="25">Ciudad de Guatemala - Q25</option>
           <option value="35">Mixco, Fraijanes, Villa Nueva, etc. - Q35</option>
-          <option value="40" selected>Departamentos (todo el país) - Q40</option>
+          <option value="45" selected>Departamentos (todo el país) - Q45 aproximadamente</option>
         </select>
         <div class="n"><strong>Nota:</strong> El costo de envío es base y puede variar según dimensiones. ¡Confirmamos por WhatsApp!</div>
 
@@ -266,18 +112,18 @@
           <label><input type="radio" name="pago" value="t" checked> <span>Transferencia / Depósito Bancario</span></label>
         </div>
         <div class="op">
-          <label><input type="radio" name="pago" value="c"> <span>Contraentrega <b style="color:#e74c3c">(+5% en Deptos.)</b></span></label>
+          <label><input type="radio" name="pago" value="c"> <span>Contra Entrega <b style="color:#e74c3c">(recargo del 5%, solo aplica en departamentos).</b></span></label>
         </div>
 
         <h3 style="margin-top:1.5rem"><i class="bi bi-chat-left-text"></i> Notas del pedido</h3>
-        <textarea id="notas" placeholder="Ej. Entregar después de las 4pm o llamar al llegar..."></textarea>
+        <textarea id="notas" placeholder="Ej. Detalles adicionales..."></textarea>
       </div>
 
       <div class="r">
         <div class="l"><span>Subtotal</span> <span id="sub">Q0.00</span></div>
-        <div class="l"><span>Envío estimado</span> <span id="env">Q40.00</span></div>
+        <div class="l"><span>Envío estimado</span> <span id="env">Q0.00</span></div>
         <div class="l" id="rec" style="display:none;color:#e74c3c"><span>Recargo contraentrega (5%)</span> <span id="re">Q0.00</span></div>
-        <div class="l tot"><span>Total a pagar</span> <strong id="tot">Q40.00</strong></div>
+        <div class="l tot"><span>Total a pagar</span> <strong id="tot">Q0.00</strong></div>
       </div>
 
       <button class="btn" onclick="fin()"><i class="bi bi-whatsapp"></i> Enviar pedido por WhatsApp</button>
@@ -287,7 +133,6 @@
     <div id="vacio" style="text-align:center;padding:5rem 2rem;display:none">
       <i class="bi bi-cart-x" style="font-size:4rem; color:#ccc"></i>
       <h2 style="margin-top:1rem">Tu carrito está vacío</h2>
-      <p style="margin-top:0.5rem; color:var(--text-soft)">¡Aún no has agregado equipos a tu pedido!</p>
       <a href="index.html" style="display:inline-block; margin-top:1.5rem; color:var(--accent); font-weight:700;">Ir a la tienda</a>
     </div>
   </div>
@@ -308,38 +153,34 @@
       logoImg: "img/Viiajo_Nombre.png",
       faviconImg: "img/Viiajo.ico",
       colores: {
-        primario: "#3d85c6",
-        acento: "#0074B7"
+        primario: "#0082C9",
+        acento: "#1C3F60",
+        info: "#0074B7"
       }
     };
 
     const aplicarConfig = () => {
-      document.title = `🛒 Carrito | ${CONFIG.nombreNegocio}`;
+      document.getElementById("page-title").innerText = `Carrito | ${CONFIG.nombreNegocio}`;
       document.getElementById("logo-header").src = CONFIG.logoImg;
+      document.getElementById("js-favicon").href = CONFIG.faviconImg;
       document.getElementById("meta-theme-color").content = CONFIG.colores.primario;
-      document.getElementById("favicon").href = CONFIG.faviconImg;
       document.getElementById("footer-text").innerHTML = `© 2026 <strong>${CONFIG.nombreNegocio}</strong> | Guatemala`;
       
       const root = document.documentElement;
       root.style.setProperty('--primary', CONFIG.colores.primario);
       root.style.setProperty('--accent', CONFIG.colores.acento);
+      root.style.setProperty('--info', CONFIG.colores.info);
     };
 
-    aplicarConfig();
-
-    // ==========================================
-    // LÓGICA DEL CARRITO
-    // ==========================================
     const $ = s => document.getElementById(s);
     const zona = $('zona');
     const notas = $('notas');
 
-    // Volver a la tienda manteniendo el estado
     window.irAtras = () => {
         if (document.referrer.indexOf(window.location.host) !== -1) {
-            history.back(); // Vuelve exacto a donde estaba
+            history.back();
         } else {
-            window.location.href = 'index.html'; // Fallback
+            window.location.href = 'index.html';
         }
     };
 
@@ -366,21 +207,15 @@
         const imgPath = Array.isArray(i.imagen) ? i.imagen[0] : i.imagen;
         $('lista').innerHTML += `
           <div class="i">
-            <div class="img-wrap">
-              <img src="${imgPath||'img/placeholder.png'}" alt="${i.titulo}">
-            </div>
+            <div class="img-wrap"><img src="${imgPath||'img/placeholder.png'}"></div>
             <div class="info">
               <h3>${i.titulo}</h3>
               <p class="pr">${CONFIG.simboloMoneda}${i.t.toFixed(2)}</p>
             </div>
             <div class="stepper">
-                <button class="${i.c === 1 ? 'del' : ''}" onclick="cambiarCant('${i.id}', -1)">
-                    <i class="bi bi-${i.c === 1 ? 'trash' : 'dash'}"></i>
-                </button>
+                <button class="${i.c === 1 ? 'del' : ''}" onclick="cambiarCant('${i.id}', -1)"><i class="bi bi-${i.c === 1 ? 'trash' : 'dash'}"></i></button>
                 <div class="count">${i.c}</div>
-                <button onclick="cambiarCant('${i.id}', 1)">
-                    <i class="bi bi-plus"></i>
-                </button>
+                <button onclick="cambiarCant('${i.id}', 1)"><i class="bi bi-plus"></i></button>
             </div>
           </div>`;
       });
@@ -391,7 +226,7 @@
       const items = agrupar();
       const subtotal = items.reduce((a,b)=>a+b.t,0);
       const envio = +zona.value;
-      const esDepartamento = envio === 40;
+      const esDepartamento = envio === 45; // Actualizado a 45
       const contraentrega = document.querySelector('input[name="pago"][value="c"]').checked;
       const recargo = (esDepartamento && contraentrega) ? (subtotal + envio) * 0.05 : 0;
 
@@ -402,15 +237,12 @@
       $('tot').textContent = `${CONFIG.simboloMoneda}${(subtotal + envio + recargo).toFixed(2)}`;
     };
 
-    // NUEVA FUNCIÓN: Cambiar cantidad
     window.cambiarCant = (id, delta) => {
         let c = JSON.parse(localStorage.getItem("carrito")||"[]");
         if (delta > 0) {
-            // Agregar uno nuevo buscando el objeto existente
             const p = c.find(x => x.id === id);
             c.push({...p});
         } else {
-            // Eliminar la primera coincidencia
             const idx = c.findIndex(p => p.id === id);
             if(idx > -1) c.splice(idx, 1);
         }
@@ -419,38 +251,53 @@
     };
 
     window.vaciarCarrito = () => {
-      if (confirm("¿Deseas vaciar todos los productos del carrito?")) {
-        localStorage.removeItem("carrito");
-        act();
-      }
+      if (confirm("¿Vaciar carrito?")) { localStorage.removeItem("carrito"); act(); }
     };
 
     window.fin = () => {
+      // CORRECCIÓN 3: Validación de campos obligatorios
+      const nombre = $('nombre_cliente').value.trim();
+      const telefono = $('telefono_cliente').value.trim();
+      const direccion = $('direccion_cliente').value.trim();
+
+      if(!nombre || !telefono || !direccion) {
+          alert("⚠️ ¡Atención! Los campos de Nombre, Teléfono y Dirección son obligatorios para procesar su entrega.");
+          return;
+      }
+
       const items = agrupar();
       const subtotal = items.reduce((a,b)=>a+b.t,0);
       const envio = +zona.value;
       const ztxt = zona.selectedOptions[0].text.split(" - ")[0];
       const contraentrega = document.querySelector('input[name="pago"][value="c"]').checked;
-      const esDepartamento = envio === 40;
+      const esDepartamento = envio === 45; // Actualizado
       const recargo = (esDepartamento && contraentrega) ? (subtotal + envio) * 0.05 : 0;
       const total = subtotal + envio + recargo;
 
       let m = `*¡Hola ${CONFIG.nombreNegocio}!*%0AMi pedido:%0A%0A`;
+      m += `*CLIENTE:* ${encodeURIComponent(nombre)}%0A`;
+      m += `*TELÉFONO:* ${encodeURIComponent(telefono)}%0A`;
+      m += `*DIRECCIÓN:* ${encodeURIComponent(direccion)}%0A%0A`;
+      m += `*DETALLES:*%0A`;
+      items.forEach(i => { m += `• ${i.titulo} (x${i.c}) - ${CONFIG.simboloMoneda}${i.t.toFixed(2)}%0A`; });
       
-      items.forEach(i => {
-        m += `• ${i.titulo} [ID: ${i.id}] (x${i.c}) - ${CONFIG.simboloMoneda}${i.t.toFixed(2)}%0A`;
-      });
-
       m += `%0A*Subtotal:* ${CONFIG.simboloMoneda}${subtotal.toFixed(2)}`;
       m += `%0A*Envío (${ztxt}):* ${CONFIG.simboloMoneda}${envio.toFixed(2)}`;
-      if (recargo) m += `%0A*Recargo contraentrega:* ${CONFIG.simboloMoneda}${recargo.toFixed(2)}`;
-      m += `%0A%0A*TOTAL A PAGAR: ${CONFIG.simboloMoneda}${total.toFixed(2)}*%0A`;
-      m += `%0A*Método:* ${contraentrega ? "Contraentrega" : "Transferencia Bancaria"}`;
+      
+      // CORRECCIÓN 1: Mostrar detalle de recargo en WhatsApp si es Depto y Contraentrega
+      if (recargo > 0) {
+          m += `%0A*Recargo Contraentrega (5%):* ${CONFIG.simboloMoneda}${recargo.toFixed(2)}`;
+      }
+
+      m += `%0A%0A*TOTAL: ${CONFIG.simboloMoneda}${total.toFixed(2)}*%0A`;
+      m += `%0A*Método de Pago:* ${contraentrega ? "Contraentrega (Pago al recibir)" : "Transferencia / Depósito"}`;
+      
       if (notas.value.trim()) m += `%0A*Notas:* ${encodeURIComponent(notas.value.trim())}`;
       
       open(`https://wa.me/${CONFIG.telefonoWhatsApp}?text=` + m, "_blank");
     };
 
+    aplicarConfig();
     zona.onchange = calc;
     document.querySelectorAll('input[name="pago"]').forEach(r => r.onclick = calc);
     act();

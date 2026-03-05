@@ -2,75 +2,91 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title id="admin-title">Panel de Control | Sistema de Gestión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="admin-title">Panel de Control</title>
+    
+    <link rel="icon" type="image/x-icon" id="js-favicon" href="">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
     <style>
-        /* CONFIGURACIÓN DE MARCA (BRANDING) - Modificar para cada cliente */
         :root { 
-            --primary: #3d85c6; 
+            --primary: #1114c7; 
             --dark: #1C3F60; 
             --danger: #dc3545; 
             --info: #0074B7; 
             --success: #28a745; 
+            --bg: #f8fafc;
         }
 
-        body { font-family: 'Inter', sans-serif; background: #f4f7f6; padding: 20px; color: var(--dark); margin: 0; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); padding: 20px; color: var(--dark); margin: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; }
         
-        /* HEADER COMERCIAL */
-        .brand-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; background: white; padding: 15px 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .brand-logo { height: 50px; }
+        .brand-header { 
+            display: flex; align-items: center; justify-content: space-between; 
+            margin-bottom: 30px; background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(10px); padding: 20px 30px; border-radius: 20px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(255,255,255,0.3);
+        }
+        .brand-logo { height: 60px; }
 
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #eee; transition: 0.3s; }
-        h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 1.3rem; }
+        .card { 
+            background: white; padding: 30px; border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02); margin-bottom: 25px; 
+            border: 1px solid #f1f5f9; transition: all 0.4s; 
+        }
         
-        .modo-edicion { border: 2px solid var(--info); background: #f0f7ff; transform: scale(1.01); }
+        h2 { 
+            color: var(--dark); margin-top: 0; border-bottom: 2px solid #f1f5f9; 
+            padding-bottom: 15px; display: flex; align-items: center; gap: 12px; 
+            font-size: 1.4rem; font-weight: 800;
+        }
+        h2 i { color: var(--primary); }
+        
+        .modo-edicion { border: 2px solid var(--info); background: #f8fbff; transform: translateY(-5px); }
 
-        /* BUSCADOR */
-        .search-container { margin-bottom: 20px; position: relative; }
-        .search-input { width: 100%; padding: 14px 45px; border-radius: 12px; border: 2px solid #ddd; box-sizing: border-box; font-size: 1rem; outline: none; transition: 0.3s; }
-        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(244,124,32,0.1); }
-        .search-icon { position: absolute; left: 18px; top: 16px; color: #888; font-size: 1.2rem; }
-        #search-results-tag { display: inline-block; margin-top: 8px; font-size: 0.85rem; font-weight: bold; color: var(--info); }
+        .search-container { margin-bottom: 25px; position: relative; }
+        .search-input { 
+            width: 100%; padding: 16px 55px; border-radius: 16px; 
+            border: 2px solid #e2e8f0; box-sizing: border-box; font-size: 1rem; 
+            outline: none; transition: 0.3s; background: white;
+        }
+        .search-icon { position: absolute; left: 20px; top: 18px; color: var(--primary); font-size: 1.3rem; }
+        
+        .export-bar { display: flex; gap: 10px; margin-bottom: 15px; justify-content: flex-end; }
+        .btn-export { padding: 8px 15px; border-radius: 10px; font-size: 0.75rem; display: flex; align-items: center; gap: 8px; font-weight: 700; color: white; cursor: pointer; border: none; transition: 0.3s; }
+        .btn-excel { background: #1D6F42; }
+        .btn-pdf { background: #E03131; }
 
-        .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+        #search-results-tag { display: inline-block; margin-top: 10px; font-size: 0.85rem; font-weight: 600; color: var(--info); padding: 4px 12px; background: #e0f2fe; border-radius: 8px; }
+
+        .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
         .full-width { grid-column: 1 / -1; }
         
-        .field { display: flex; flex-direction: column; gap: 6px; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #555; }
-        input, textarea, select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
-        input:focus { border-color: var(--info); outline: none; }
+        .field { display: flex; flex-direction: column; gap: 8px; }
+        label { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #64748b; }
+        input, textarea, select { padding: 14px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.95rem; font-family: inherit; }
         
-        .btn-group { display: flex; gap: 12px; margin-top: 20px; }
-        button { border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: 800; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
-        #btnGuardar { background: var(--primary); color: white; flex: 2; box-shadow: 0 4px 12px rgba(244,124,32,0.2); }
-        #btnGuardar:hover { background: #e06b10; transform: translateY(-2px); }
-        #btnCancelar { background: #666; color: white; flex: 1; display: none; }
+        .btn-group { display: flex; gap: 15px; margin-top: 25px; }
+        button { border: none; padding: 16px; border-radius: 14px; cursor: pointer; font-weight: 800; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; }
+        #btnGuardar { background: linear-gradient(135deg, var(--primary), #e06b10); color: white; flex: 2; }
+        #btnCancelar { background: #f1f5f9; color: #64748b; flex: 1; display: none; }
 
-        .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid #eee; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 1000px; }
-        th { background: var(--dark); color: white; padding: 15px; text-align: left; position: sticky; top: 0; }
-        td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
-        tr:hover { background-color: #fcfcfc; }
+        .table-wrapper { overflow-x: auto; border-radius: 20px; border: 1px solid #f1f5f9; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 1000px; }
+        th { background: #f8fafc; color: #64748b; padding: 18px; text-align: left; border-bottom: 2px solid #f1f5f9; }
+        td { padding: 16px; border-bottom: 1px solid #f8fafc; vertical-align: middle; }
         
-        .img-preview { width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
-        .btn-accion { padding: 10px; border-radius: 8px; cursor: pointer; border: none; font-size: 1.1rem; transition: 0.2s; }
-        .btn-edit { background: #e3f2fd; color: var(--info); }
-        .btn-edit:hover { background: var(--info); color: white; }
-        .btn-delete { background: #ffebee; color: var(--danger); margin-left: 5px; }
-        .btn-delete:hover { background: var(--danger); color: white; }
-        
-        .badge { padding: 5px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; }
-        .disponible { background: #e8f5e9; color: #2e7d32; }
-        .agotado { background: #ffebee; color: #c62828; }
-
-        @media (max-width: 768px) {
-            .brand-header { flex-direction: column; text-align: center; gap: 15px; }
-            .grid-form { grid-template-columns: 1fr; }
-            .btn-group { flex-direction: column; }
-            .table-wrapper { border: none; }
-            table { min-width: 700px; }
-        }
+        .img-preview { width: 55px; height: 55px; object-fit: cover; border-radius: 14px; }
+        .btn-accion { width: 38px; height: 38px; border-radius: 10px; cursor: pointer; border: none; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-edit { background: #eff6ff; color: var(--info); }
+        .badge { padding: 6px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; }
+        .disponible { background: #dcfce7; color: #166534; }
+        .agotado { background: #fee2e2; color: #991b1b; }
     </style>
 </head>
 <body>
@@ -79,24 +95,24 @@
     <div class="brand-header">
         <img src="" id="js-brand-logo" alt="Logo" class="brand-logo">
         <div style="text-align: right">
-            <h1 id="js-brand-name" style="margin:0; font-size: 1.4rem; color: var(--dark);">Admin Panel</h1>
-            <small id="js-brand-tagline" style="color: #999; letter-spacing: 1px;"></small>
+            <h1 id="js-brand-name" style="margin:0; font-size: 1.6rem; color: var(--dark);">Admin Panel</h1>
+            <small id="js-brand-tagline" style="font-weight: 700; text-transform: uppercase; font-size: 0.7rem;"></small>
         </div>
     </div>
 
     <div class="card" id="contenedorForm">
-        <h2 id="tituloForm"><i class="bi bi-plus-circle-fill"></i> Gestionar Producto</h2>
+        <h2 id="tituloForm"><i class="bi bi-magic"></i> Gestionar Producto</h2>
         <form id="formAdmin">
             <div class="grid-form">
-                <div class="field"><label>ID Único</label><input type="text" id="id" placeholder="Ej: P-001" required></div>
-                <div class="field"><label>Nombre del Producto</label><input type="text" id="titulo" placeholder="Título comercial" required></div>
-                <div class="field"><label>Imagen Principal (URL)</label><input type="url" id="imagen" placeholder="https://..." required></div>
-                <div class="field"><label>Galería (Separar con |)</label><input type="text" id="imagenes" placeholder="url1 | url2 | url3"></div>
-                <div class="field"><label>ID Categoría</label><input type="text" id="categoria_id" placeholder="CAT01" required></div>
-                <div class="field"><label>Nombre Categoría</label><input type="text" id="categoria_nombre" placeholder="Muebles" required></div>
-                <div class="field"><label>ID Subcategoría</label><input type="text" id="subcategoria_id" placeholder="SUB01"></div>
-                <div class="field"><label>Nombre Subcategoría</label><input type="text" id="subcategoria_nombre" placeholder="Estantes"></div>
-                <div class="field"><label>Precio (Q)</label><input type="number" id="precio" step="0.01" placeholder="0.00" required></div>
+                <div class="field"><label>ID Único</label><input type="text" id="id" required></div>
+                <div class="field"><label>Nombre del Producto</label><input type="text" id="titulo" required></div>
+                <div class="field"><label>Imagen Principal (URL)</label><input type="url" id="imagen" required></div>
+                <div class="field"><label>Galería (Separar con |)</label><input type="text" id="imagenes"></div>
+                <div class="field"><label>ID Categoría</label><input type="text" id="categoria_id" required></div>
+                <div class="field"><label>Nombre Categoría</label><input type="text" id="categoria_nombre" required></div>
+                <div class="field"><label>ID Subcategoría</label><input type="text" id="subcategoria_id"></div>
+                <div class="field"><label>Nombre Subcategoría</label><input type="text" id="subcategoria_nombre"></div>
+                <div class="field"><label>Precio (Q)</label><input type="number" id="precio" step="0.01" required></div>
                 <div class="field">
                     <label>Estado de Inventario</label>
                     <select id="estado">
@@ -106,22 +122,26 @@
                 </div>
                 <div class="field full-width">
                     <label>Descripción detallada y Medidas</label>
-                    <textarea id="producto_descripcion" rows="3" placeholder="Escribe aquí las especificaciones del producto..."></textarea>
+                    <textarea id="producto_descripcion" rows="3"></textarea>
                 </div>
             </div>
             <div class="btn-group">
-                <button type="submit" id="btnGuardar">Sincronizar con Google Sheets</button>
+                <button type="submit" id="btnGuardar">Sincronizar Datos</button>
                 <button type="button" id="btnCancelar" onclick="cancelarEdicion()">Descartar Cambios</button>
             </div>
         </form>
     </div>
 
     <div class="card" id="seccion-tabla">
-        <h2><i class="bi bi-box-seam"></i> Inventario de Productos</h2>
+        <h2><i class="bi bi-layers-half"></i> Inventario de Productos</h2>
+        <div class="export-bar">
+            <button class="btn-export btn-excel" onclick="exportarExcel()"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+            <button class="btn-export btn-pdf" onclick="exportarPDF()"><i class="bi bi-file-earmark-pdf"></i> PDF</button>
+        </div>
         <div class="search-container">
             <i class="bi bi-search search-icon"></i>
-            <input type="text" id="txtSearch" class="search-input" placeholder="Buscar por ID, Nombre, Categoría...">
-            <span id="search-results-tag"></span>
+            <input type="text" id="txtSearch" class="search-input" placeholder="Buscar producto...">
+            <span id="search-results-tag">Esperando búsqueda...</span>
         </div>
         <div class="table-wrapper">
             <table>
@@ -130,91 +150,103 @@
                         <th>Acciones</th>
                         <th>Vista</th>
                         <th>ID / Producto</th>
-                        <th>Categoría / Subcategoría</th>
+                        <th>Categoría</th>
                         <th>Estado</th>
                         <th>Precio</th>
                     </tr>
                 </thead>
-                <tbody id="tablaBody">
-                    <tr><td colspan="6" style="text-align:center; padding:40px;">Cargando base de datos...</td></tr>
-                </tbody>
+                <tbody id="tablaBody"></tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
+    /***********************************************************
+     * CONFIGURACIÓN CENTRALIZADA (MODIFICAR AQUÍ PARA CADA CLIENTE)
+     ***********************************************************/
     const CONFIG = {
-        brandName: "OrganizaGT",
+        // Textos y Branding
+        brandName: "Viiajo",
         tagline: "GESTIÓN DE INVENTARIOS V1.0",
-        logo: "img/Viiajo_Nombre.png",
-        currency: "Q",
-        SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxYb55oZshJf4BkeIHDjB8f0pkunpmYj_wdeWu-59YVL6vHVtLCWHmmOBFCKvWSrL9EPw/exec",
+        logoUrl: "img/Viiajo.png",
+        favicon: "img/Viiajo.ico", // Ruta al favicon
+        
+        // Colores de la Marca (CSS Variables)
+        color_primary: "#F47C20", 
+        color_dark: "#1C3F60",    
+        color_info: "#0074B7",    
+        
+        // Conectores (Google Sheets)
+        SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwzA3peqNacZ8OdA3QRfZjVylFNf13eYOzSiVnWBFIkMl0EVr8ghOUn6KUNJ3YLqXx4QQ/exec",
         CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSHAY87rIFAPkwYS9bJvT80ydkUuxn1kTd6aS-Y7mM-1zoHNCqGewaL-NiYtyyFxjFLM4p5iSTA_bs4/pub?output=csv"
     };
 
+    /***********************************************************
+     * LÓGICA DEL SISTEMA
+     ***********************************************************/
+    
     let productosGlobal = [];
+    let productosFiltrados = [];
 
-    function initApp() {
+    function aplicarConfiguracion() {
+        // Inyectar Textos y Logos
         document.getElementById('js-brand-name').innerText = CONFIG.brandName;
         document.getElementById('js-brand-tagline').innerText = CONFIG.tagline;
-        document.getElementById('js-brand-logo').src = CONFIG.logo;
-        document.title = "Admin | " + CONFIG.brandName;
+        document.getElementById('js-brand-logo').src = CONFIG.logoUrl;
+        document.getElementById('admin-title').innerText = "Admin | " + CONFIG.brandName;
+        
+        // INYECTAR FAVICON
+        document.getElementById('js-favicon').href = CONFIG.favicon;
+        
+        // Aplicar colores dinámicos
+        const root = document.documentElement;
+        root.style.setProperty('--primary', CONFIG.color_primary);
+        root.style.setProperty('--dark', CONFIG.color_dark);
+        root.style.setProperty('--info', CONFIG.color_info);
+        
         cargarDatos();
-    }
-
-    function parseCSV(text) {
-        const lines = [];
-        let curLine = [];
-        let curCell = "";
-        let inQuotes = false;
-        for (let i = 0; i < text.length; i++) {
-            let c = text[i];
-            if (c === '"') inQuotes = !inQuotes;
-            else if (c === ',' && !inQuotes) { curLine.push(curCell); curCell = ""; }
-            else if (c === '\n' && !inQuotes) { curLine.push(curCell); lines.push(curLine); curLine = []; curCell = ""; }
-            else curCell += c;
-        }
-        curLine.push(curCell);
-        lines.push(curLine);
-        return lines;
     }
 
     async function cargarDatos() {
         try {
-            // Cache Buster (?t=) para asegurar data actualizada en refresh
             const response = await fetch(`${CONFIG.CSV_URL}&t=${Date.now()}`);
             const data = await response.text();
             const rows = parseCSV(data);
             productosGlobal = [];
             for (let i = 1; i < rows.length; i++) {
                 const r = rows[i];
-                if (!r[0] || r[0].trim() === "") continue;
+                if (!r[0]) continue;
                 productosGlobal.push({
-                    id: r[0].trim(), titulo: r[1], imagen: r[2], imagenes: r[3],
+                    id: r[0], titulo: r[1], imagen: r[2], imagenes: r[3],
                     cat_id: r[4], cat_nom: r[5], sub_id: r[6], sub_nom: r[7],
                     desc: r[8], precio: r[9], estado: (r[10] || "DISPONIBLE").trim().toUpperCase()
                 });
             }
-            renderTabla(productosGlobal);
-        } catch (e) { console.error("Error cargando CSV:", e); }
+            productosFiltrados = [...productosGlobal];
+            renderTabla(productosFiltrados);
+        } catch (e) { console.error(e); }
     }
 
     function renderTabla(lista) {
         const body = document.getElementById('tablaBody');
         body.innerHTML = lista.map(p => `
             <tr>
-                <td>
-                    <button class="btn-accion btn-edit" onclick="prepararEdicion('${p.id}')"><i class="bi bi-pencil-fill"></i></button>
-                    <button class="btn-accion btn-delete" onclick="eliminarProducto('${p.id}')"><i class="bi bi-trash3-fill"></i></button>
-                </td>
+                <td><button class="btn-accion btn-edit" onclick="prepararEdicion('${p.id}')"><i class="bi bi-pencil-square"></i></button></td>
                 <td><img src="${p.imagen}" class="img-preview" onerror="this.src='https://via.placeholder.com/50'"></td>
                 <td><strong>${p.titulo}</strong><br><small>${p.id}</small></td>
-                <td><span class="badge" style="background:#eee;color:#555">${p.cat_nom}</span><br><small>${p.sub_nom || ''}</small></td>
+                <td>${p.cat_nom}</td>
                 <td><span class="badge ${p.estado === 'AGOTADO' ? 'agotado' : 'disponible'}">${p.estado}</span></td>
-                <td><strong>Q${parseFloat(p.precio || 0).toFixed(2)}</strong></td>
+                <td>Q${parseFloat(p.precio || 0).toFixed(2)}</td>
             </tr>
         `).join('');
+    }
+
+    function filtrarProductos() {
+        const val = document.getElementById('txtSearch').value.toLowerCase();
+        productosFiltrados = productosGlobal.filter(p => p.titulo.toLowerCase().includes(val) || p.id.toLowerCase().includes(val) || p.cat_nom.toLowerCase().includes(val));
+        renderTabla(productosFiltrados);
+        document.getElementById('search-results-tag').innerText = `${productosFiltrados.length} encontrados`;
     }
 
     window.prepararEdicion = (id) => {
@@ -224,16 +256,17 @@
         document.getElementById('id').readOnly = true;
         document.getElementById('titulo').value = p.titulo;
         document.getElementById('imagen').value = p.imagen;
-        document.getElementById('imagenes').value = p.imagenes;
+        document.getElementById('imagenes').value = p.imagenes || "";
         document.getElementById('categoria_id').value = p.cat_id;
         document.getElementById('categoria_nombre').value = p.cat_nom;
         document.getElementById('subcategoria_id').value = p.sub_id;
         document.getElementById('subcategoria_nombre').value = p.sub_nom;
         document.getElementById('precio').value = p.precio;
-        document.getElementById('estado').value = p.estado; // Sincroniza valor de estado
+        document.getElementById('estado').value = p.estado;
+        document.getElementById('producto_descripcion').value = p.desc || ""; 
 
         document.getElementById('contenedorForm').classList.add('modo-edicion');
-        document.getElementById('btnGuardar').innerText = "Guardar Cambios Actualizados";
+        document.getElementById('btnGuardar').innerText = "Guardar Cambios";
         document.getElementById('btnCancelar').style.display = "block";
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -242,50 +275,93 @@
         document.getElementById('formAdmin').reset();
         document.getElementById('id').readOnly = false;
         document.getElementById('contenedorForm').classList.remove('modo-edicion');
-        document.getElementById('btnGuardar').innerText = "Sincronizar con Google Sheets";
+        document.getElementById('btnGuardar').innerText = "Sincronizar Datos";
         document.getElementById('btnCancelar').style.display = "none";
+    }
+
+    async function exportarPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('l', 'mm', 'a4');
+        doc.text(`Inventario de ${CONFIG.brandName}`, 14, 15);
+        
+        const toBase64 = url => fetch("https://corsproxy.io/?" + encodeURIComponent(url))
+            .then(response => response.blob())
+            .then(blob => new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            })).catch(() => null);
+
+        const tableBody = [];
+        for (let p of productosFiltrados) {
+            const imgData = await toBase64(p.imagen);
+            tableBody.push({ img: imgData, id: p.id, titulo: p.titulo, cat: p.cat_nom, estado: p.estado, precio: `Q${p.precio}` });
+        }
+
+        doc.autoTable({
+            startY: 25,
+            head: [['Vista', 'ID', 'Producto', 'Categoría', 'Estado', 'Precio']],
+            body: tableBody.map(r => ["", r.id, r.titulo, r.cat, r.estado, r.precio]),
+            didDrawCell: (data) => {
+                if (data.section === 'body' && data.column.index === 0 && tableBody[data.row.index].img) {
+                    doc.addImage(tableBody[data.row.index].img, 'JPEG', data.cell.x + 2, data.cell.y + 2, 10, 10);
+                }
+            },
+            columnStyles: { 0: { cellWidth: 15 } },
+            styles: { minCellHeight: 15, verticalAlign: 'middle' }
+        });
+        doc.save(`Inventario_${CONFIG.brandName}.pdf`);
+    }
+
+    function exportarExcel() {
+        const ws = XLSX.utils.json_to_sheet(productosFiltrados);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Productos");
+        XLSX.writeFile(wb, `Inventario_${CONFIG.brandName}.xlsx`);
+    }
+
+    function parseCSV(text) {
+        const lines = []; let curLine = []; let curCell = ""; let inQuotes = false;
+        for (let i = 0; i < text.length; i++) {
+            let c = text[i];
+            if (c === '"') inQuotes = !inQuotes;
+            else if (c === ',' && !inQuotes) { curLine.push(curCell); curCell = ""; }
+            else if (c === '\n' && !inQuotes) { curLine.push(curCell); lines.push(curLine); curLine = []; curCell = ""; }
+            else curCell += c;
+        }
+        curLine.push(curCell); lines.push(curLine);
+        return lines;
     }
 
     document.getElementById('formAdmin').onsubmit = async (e) => {
         e.preventDefault();
         const btn = document.getElementById('btnGuardar');
-        btn.disabled = true;
-        btn.innerText = "PROCESANDO...";
-
+        btn.disabled = true; btn.innerText = "PROCESANDO...";
         const payload = {
-            action: "upsert", // Evita duplicados junto con el script
+            action: "upsert",
             id: document.getElementById('id').value.trim(),
             titulo: document.getElementById('titulo').value.trim(),
             imagen: document.getElementById('imagen').value.trim(),
-            imagenes: document.getElementById('imagenes').value || document.getElementById('imagen').value,
+            imagenes: document.getElementById('imagenes').value.trim() || document.getElementById('imagen').value.trim(),
             categoria_id: document.getElementById('categoria_id').value,
             categoria_nombre: document.getElementById('categoria_nombre').value,
             subcategoria_id: document.getElementById('subcategoria_id').value,
             subcategoria_nombre: document.getElementById('subcategoria_nombre').value,
             producto_descripcion: document.getElementById('producto_descripcion').value,
             precio: document.getElementById('precio').value,
-            estado: document.getElementById('estado').value // Envía el valor del estado
+            estado: document.getElementById('estado').value
         };
-
         try {
             await fetch(CONFIG.SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-            alert("✅ ¡Éxito! Los datos han sido enviados.");
+            alert("✅ ¡Sincronizado! Los cambios se reflejarán en breve.");
             cancelarEdicion();
             setTimeout(cargarDatos, 1500);
-        } catch (err) { alert("❌ Error al guardar."); }
-        finally { btn.disabled = false; btn.innerText = "Sincronizar con Google Sheets"; }
+        } catch (e) { alert("Error al conectar"); }
+        finally { btn.disabled = false; btn.innerText = "Sincronizar Datos"; }
     };
 
-    window.eliminarProducto = async (id) => {
-        if (!confirm(`¿Eliminar ${id}?`)) return;
-        try {
-            await fetch(CONFIG.SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: "delete", id: id }) });
-            alert("🗑️ Solicitud de eliminación enviada.");
-            setTimeout(cargarDatos, 1000);
-        } catch (e) { alert("Error."); }
-    };
-
-    window.onload = initApp;
+    window.onload = aplicarConfiguracion;
+    document.getElementById('txtSearch').addEventListener('input', filtrarProductos);
 </script>
 </body>
 </html>
