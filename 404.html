@@ -10,6 +10,7 @@
   
   <title id="page-title">Viiajo Guatemala | Equipamiento para Viajes y Excursiones</title>
   <meta name="description" id="meta-desc" content="Tu tienda en Guatemala para maletas, mochilas y accesorios para viajeros. ¡Equípate para tu próxima aventura con pago contra entrega!" />
+  <link rel="canonical" href="https://viiajo.rompecabezas.online/" />
   <meta name="google-site-verification" content="google7b2553fddd46e859.html" />
 
   <meta property="og:title" content="Viiajo Guatemala - Accesorios para Viajeros">
@@ -225,6 +226,23 @@
       <img id="logo-main" src="" alt="Logo Principal" class="logo-glow">
     </div>
     <h1 id="titulo-principal">Viiajo Guatemala</h1>
+    
+    <div id="seo-static-content" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 10px 20px;">
+        <p style="color:#555; font-size:0.95rem;">Bienvenidos a <strong>Viiajo Guatemala</strong>, tu tienda de confianza para equipamiento de viaje. Explora nuestro catálogo de productos premium:</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px;">
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Maletas Adultos</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Maletas Niños</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Cargadores Oficina</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Accesorios Maletas</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Mascotas</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Picnic</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Seguridad</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Descanso</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Organizador de Ropa</span>
+            <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Cosmetiqueras</span>
+        </div>
+    </div>
+
     <p class="subtitle-seo" id="texto-subtitulo">Equipamiento para Viajes y Excursiones</p>
     
     <div id="contenedor-filtros-sub"></div>
@@ -232,19 +250,10 @@
     <div class="trust-badges" id="container-badges"></div>
 
     <section id="contenedor-productos">
-        <div class="producto-estatico">
-          <img src="img/Viiajo.png" style="width:100%; height:180px; object-fit:contain; opacity:0.5;">
-          <h3>Maletas de Viaje Resistentes</h3>
-          <p>Equipaje de mano y bodega para todas las aerolíneas.</p>
-          <p class="precio">Desde Q499.00</p>
+        <div style="text-align:center; grid-column: 1/-1; padding:40px;">
+            <i class="bi bi-arrow-repeat spin" style="font-size: 2rem; color: var(--primary);"></i>
+            <p style="margin-top:10px; color:#666;">Sincronizando inventario en tiempo real...</p>
         </div>
-        <div class="producto-estatico">
-          <img src="img/Viiajo.png" style="width:100%; height:180px; object-fit:contain; opacity:0.5;">
-          <h3>Mochilas de Camping</h3>
-          <p>Diseños ergonómicos para senderismo y montañismo.</p>
-          <p class="precio">Desde Q350.00</p>
-        </div>
-        <p style="text-align:center; grid-column: 1/-1; padding:20px; color:#666;">Sincronizando inventario en tiempo real...</p>
     </section> 
   </main>
 
@@ -516,6 +525,11 @@
 
     function renderProductos(lista) {
       const contenedor = document.getElementById("contenedor-productos");
+      
+      // ELIMINA EL TEXTO SEO CUANDO CARGAN LOS PRODUCTOS
+      const seoBlock = document.getElementById("seo-static-content");
+      if(seoBlock) seoBlock.style.display = "none";
+
       contenedor.innerHTML = "";
       if (lista.length === 0) {
         contenedor.innerHTML = "<p style='text-align:center; grid-column:1/-1; padding:2rem;'>No se encontraron productos.</p>";
