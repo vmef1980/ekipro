@@ -21,7 +21,7 @@
 
         /* Espaciado de controles */
         .form-group { margin-bottom: 15px; }
-        .checkbox-group { display: flex; gap: 10px; align-items: center; margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
+        .checkbox-group { display: flex; gap: 10px; align-items: center; margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; flex-wrap: wrap; }
         .checkbox-group label { margin-bottom: 0; cursor: pointer; display: flex; align-items: center; gap: 5px; text-transform: none; font-size: 0.8rem; }
         .checkbox-group input { width: auto; cursor: pointer; }
 
@@ -62,7 +62,7 @@
     <div class="sidebar-content">
         <div class="form-group">
             <label>1. Catálogo (CSV)</label>
-            <input type="text" id="csvUrl" value="https://docs.google.com/spreadsheets/d/e/2PACX-1vR7Zyc9Avk6GHrzXR5lDrs9mvfQMptixZpH9RoZ5I7AqlVGYEWtUqWiLw_ucBxY1rHKBOPHyo9Biftj/pub?output=csv">
+            <input type="text" id="csvUrl" value="">
             <button class="btn btn-primary" onclick="cargarCatalogo()" style="margin-top:8px;">Sincronizar</button>
         </div>
 
@@ -77,12 +77,16 @@
 
         <label>Mostrar en la imagen:</label>
         <div class="checkbox-group">
-            <label><input type="checkbox" id="showWeb" onchange="actualizarInterfaz()"> Link Web</label>
+            <label><input type="checkbox" id="showTitle" checked onchange="actualizarInterfaz()"> Título</label>
+            <label><input type="checkbox" id="showCat" checked onchange="actualizarInterfaz()"> Categoría</label>
+            <label><input type="checkbox" id="showSub" checked onchange="actualizarInterfaz()"> SubCat</label>
+            <label><input type="checkbox" id="showPrice" checked onchange="actualizarInterfaz()"> Precio</label>
+            <label><input type="checkbox" id="showWeb" onchange="actualizarInterfaz()"> Web</label>
             <label><input type="checkbox" id="showWA" onchange="actualizarInterfaz()"> WhatsApp</label>
         </div>
 
         <div class="form-group">
-            <label>Producto</label>
+            <label>Producto (Ordenado por Subcategoría)</label>
             <select id="productSelect" onchange="actualizarInterfaz()">
                 <option value="">-- Selecciona --</option>
             </select>
@@ -119,21 +123,17 @@
 </div>
 
 <script>
-    /***********************************************************
-     * CENTRALIZACIÓN DE INFORMACIÓN COMERCIAL
-     ***********************************************************/
     const COMERCIAL_CONFIG = {
-        tituloPagina: "Social Ads HD Pro | Viiajo",
-        favicon: "img/Viiajo.ico",
+        tituloPagina: "Social Ads HD Pro | EKIPRO",
+        favicon: "/img/EKIPRO.ico",
         nombreHeader: "MARKETING TOOL HD",
-        tagline: "Viiajo Business",
-        logoParaImagen: "img/Viiajo_Nombre.png",
+        tagline: "EKIPRO Business",
+        logoParaImagen: "/img/EKIPRO_Nombre.png",
         csvDefault: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSHAY87rIFAPkwYS9bJvT80ydkUuxn1kTd6aS-Y7mM-1zoHNCqGewaL-NiYtyyFxjFLM4p5iSTA_bs4/pub?output=csv",
         colorDefault: "#007BC4",
-        hashtagsBase: "#Guatemala #VentasGT #TiendaOnline #EnviosGuate #VisaGT #Efectivo #Ofertas #OrganizaGT"
+        hashtagsBase: "#Guatemala #Ventas #TiendaOnline #EnviosGuate #PagoContraEntrega #Ofertas #CocinaGuatemala #Restaurantes #Hoteles #Comedores #Bar #Bares"
     };
 
-    // Aplicar configuración al cargar
     window.onload = () => {
         document.title = COMERCIAL_CONFIG.tituloPagina;
         document.querySelector("link[rel='icon']").href = COMERCIAL_CONFIG.favicon;
@@ -143,9 +143,6 @@
         document.getElementById('accentColor').value = COMERCIAL_CONFIG.colorDefault;
     };
 
-    /***********************************************************
-     * LÓGICA DE FUNCIONAMIENTO
-     ***********************************************************/
     const PROXY = "https://images.weserv.nl/?url=";
     const LOGO_URL = COMERCIAL_CONFIG.logoParaImagen; 
     let productosGlobal = [];
@@ -185,13 +182,26 @@
                 };
             });
 
+            productosGlobal.sort((a, b) => a.subCat.localeCompare(b.subCat));
+
             const select = document.getElementById('productSelect');
             select.innerHTML = '<option value="">-- Elige un producto --</option>';
+            
+            let currentSubCat = "";
+            let groupElement = null;
+
             productosGlobal.forEach(p => {
+                if (p.subCat !== currentSubCat) {
+                    currentSubCat = p.subCat;
+                    groupElement = document.createElement('optgroup');
+                    groupElement.label = currentSubCat.toUpperCase();
+                    select.appendChild(groupElement);
+                }
                 let opt = document.createElement('option');
                 opt.value = p.id; 
                 opt.textContent = p.tituloDisplay; 
-                select.appendChild(opt);
+                if(groupElement) groupElement.appendChild(opt);
+                else select.appendChild(opt);
             });
             alert("✅ Catálogo sincronizado.");
         } catch (e) { alert("❌ Error de carga."); }
@@ -210,20 +220,20 @@
         if(!p) return;
 
         const waLink = userWA ? `https://wa.me/${userWA.replace(/\D/g,'')}` : "Contáctanos";
-        
-        // --- NUEVA LÓGICA DE TÍTULO MARKETPLACE Y HASHTAGS ---
         const tituloMP = `${p.tituloDisplay} | Nuevo | Envíos a toda Guatemala | Pago Contra Entrega`;
         
-        // Hashtags dinámicos basados en el producto y tendencias
-        const tagProducto = p.tituloDisplay.replace(/\s/g,'');
-        const tagCategoria = p.cat.replace(/\s/g,'');
-        const tagSub = p.subCat.replace(/\s/g,'');
+        const palabrasClave = p.tituloDisplay.toLowerCase()
+            .replace(/[^\w\s]/gi, '')
+            .split(' ')
+            .filter(w => w.length > 3)
+            .map(w => `#${w.charAt(0).toUpperCase() + w.slice(1)}`);
         
-        const hashtagsRelacionados = `#${tagProducto} #${tagCategoria} #${tagSub} #Guatemala #Ventas #TiendaOnline #EnviosGuate #PagoContraEntrega #MarketplaceGT #RegalosGuatemala #VisaGT #Efectivo #Ofertas #Viiajo`;
+        const extraTags = [...new Set(palabrasClave)].slice(0, 10).join(' ');
+        const hashtagsRelacionados = `${extraTags} #Guatemala #Ventas #TiendaOnline #EnviosGuate #PagoContraEntrega #MarketplaceGT #EKIPRO`;
 
         document.getElementById('copyTextArea').value = 
             `📌 TÍTULO MARKETPLACE:\n${tituloMP}\n\n` +
-            `⭐ ¡${p.tituloGancho.toUpperCase()}! ⭐\n\n🔹 ${p.tituloDisplay.toUpperCase()}\n💰 Q${p.precio}\n\n📝 DESCRIPCIÓN:\n${p.desc}\n\n🚚 ENVÍOS A TODA GUATEMALA 🇬🇹\n💳 PAGOS: Efectivo, Transferencia y VISA.\n*(Aplican restricciones)\n\n🛒 COMPRA AQUÍ: ${userWeb}\n📲 WHATSAPP: ${waLink}\n\n${hashtagsRelacionados}`;
+            `⭐ ¡${p.tituloGancho.toUpperCase()}! ⭐\n\n🔹 ${p.tituloDisplay.toUpperCase()}\n\n📝 DESCRIPCIÓN:\n${p.desc}\n\n🚚 ENVÍOS A TODA GUATEMALA 🇬🇹\n💳 PAGOS: Efectivo, Transferencia y VISA.\n*(Aplican restricciones)\n\n🛒 COMPRA AQUÍ: ${userWeb}\n📲 WHATSAPP: ${waLink}\n\n${hashtagsRelacionados}`;
     }
 
     async function renderizarPublicidad() {
@@ -254,8 +264,12 @@
 
     async function dibujarArteOptimizado(canvas, imgUrl, p, platform, color) {
         const ctx = canvas.getContext('2d');
+        const showTitle = document.getElementById('showTitle').checked;
+        const showCat = document.getElementById('showCat').checked;
+        const showSub = document.getElementById('showSub').checked;
         const showWeb = document.getElementById('showWeb').checked;
         const showWA = document.getElementById('showWA').checked;
+        const showPrice = document.getElementById('showPrice').checked;
         const userWeb = document.getElementById('userWeb').value;
         const userWA = document.getElementById('userWA').value;
 
@@ -276,79 +290,92 @@
             const scale = Math.max(w / img.width, h / img.height);
             ctx.drawImage(img, (w/2)-(img.width*scale/2), (h/2)-(img.height*scale/2), img.width*scale, img.height*scale);
 
+            // Gradiente Inferior
             const grad = ctx.createLinearGradient(0, h, 0, h*0.5);
-            grad.addColorStop(0, "rgba(0,0,0,0.8)");
+            grad.addColorStop(0, "rgba(0,0,0,0.85)");
             grad.addColorStop(1, "transparent");
             ctx.fillStyle = grad;
             ctx.fillRect(0, h*0.4, w, h*0.6);
 
-            ctx.fillStyle = "white";
+            // Gradiente Superior (para que se lean Cat/SubCat si hay fondos claros)
+            const gradTop = ctx.createLinearGradient(0, 0, 0, 250);
+            gradTop.addColorStop(0, "rgba(0,0,0,0.4)");
+            gradTop.addColorStop(1, "transparent");
+            ctx.fillStyle = gradTop;
+            ctx.fillRect(0, 0, w, 250);
+
+            // --- IZQUIERDA INFERIOR: TITULO Y PRECIO ---
             ctx.textAlign = "left";
-            
-            let textoAMostrar = p.tituloGancho.toUpperCase();
-            let fontSize = 60;
-            ctx.font = `bold ${fontSize}px Arial`;
-            while(ctx.measureText(textoAMostrar).width > (w - 100) && fontSize > 25) {
-                fontSize -= 2;
-                ctx.font = `bold ${fontSize}px Arial`;
+            if(showPrice) {
+                ctx.fillStyle = color;
+                ctx.font = "bold 100px Arial";
+                ctx.fillText("Q" + p.precio, 50, h - 60);
             }
-            ctx.fillText(textoAMostrar, 50, h - 160);
-            
-            ctx.fillStyle = color;
-            ctx.font = "bold 100px Arial";
-            ctx.fillText("Q" + p.precio, 50, h - 60);
+            if(showTitle) {
+                ctx.fillStyle = "white";
+                let textoAMostrar = p.tituloGancho.toUpperCase();
+                let fontSize = 60;
+                ctx.font = `bold ${fontSize}px Arial`;
+                while(ctx.measureText(textoAMostrar).width > (w * 0.55) && fontSize > 20) {
+                    fontSize -= 2;
+                    ctx.font = `bold ${fontSize}px Arial`;
+                }
+                ctx.fillText(textoAMostrar, 50, h - 160);
+            }
 
+            // --- DERECHA INFERIOR: CONTACTO (WA Y WEB) ---
             ctx.textAlign = "right";
-            ctx.font = "30px Arial";
-            let offsetInfo = 120;
-
+            let offsetBottom = 60; 
             if(showWA && userWA) {
                 ctx.fillStyle = "#25D366";
-                ctx.fillText("WhatsApp: " + userWA, w - 50, h - offsetInfo);
-                offsetInfo += 40;
+                ctx.font = "bold 30px Arial";
+                ctx.fillText("📲 " + userWA, w - 50, h - offsetBottom);
+                offsetBottom += 40;
             }
-
             if(showWeb && userWeb) {
                 ctx.fillStyle = "white";
-                ctx.fillText(userWeb, w - 50, h - offsetInfo);
+                ctx.font = "30px Arial";
+                ctx.fillText("🛒 " + userWeb, w - 50, h - offsetBottom);
             }
 
-            ctx.fillStyle = "rgba(255,255,255,0.7)";
-            ctx.font = "35px Arial";
-            ctx.fillText(p.subCat, w - 50, h - 65);
+            // --- DERECHA SUPERIOR: CATEGORIAS (LEJOS DEL TITULO) ---
+            ctx.textAlign = "right";
+            let offsetTop = 60; 
+            if(showSub) {
+                ctx.fillStyle = "rgba(255,255,255,0.9)";
+                ctx.font = "bold 32px Arial";
+                ctx.fillText(p.subCat.toUpperCase(), w - 50, offsetTop);
+                offsetTop += 40;
+            }
+            if(showCat) {
+                ctx.fillStyle = "rgba(255,255,255,0.7)";
+                ctx.font = "italic 28px Arial";
+                ctx.fillText(p.cat, w - 50, offsetTop);
+            }
 
             const logo = await cargarImg(LOGO_URL).catch(() => null);
             if(logo) ctx.drawImage(logo, 40, 40, 150, 150 * (logo.height / logo.width));
         } catch (e) { console.error(e); }
     }
 
-function cargarImg(url) {
-    return new Promise((res, rej) => {
-        if (!url) {
-            rej("URL vacía");
-            return;
-        }
+    function cargarImg(url) {
+        return new Promise((res, rej) => {
+            if (!url) { rej("URL vacía"); return; }
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            let cleanUrl = url.trim().replace(/^https?:\/\//, '');
+            img.src = PROXY + encodeURIComponent(cleanUrl);
+            img.onload = () => res(img);
+            img.onerror = (err) => {
+                const imgRetry = new Image();
+                imgRetry.crossOrigin = "anonymous";
+                imgRetry.src = url;
+                imgRetry.onload = () => res(imgRetry);
+                imgRetry.onerror = () => rej(err);
+            };
+        });
+    }
 
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-
-        // Limpiamos la URL: quitamos espacios y el protocolo para el proxy weserv
-        let cleanUrl = url.trim().replace(/^https?:\/\//, '');
-        
-        img.src = PROXY + encodeURIComponent(cleanUrl);
-
-        img.onload = () => res(img);
-        img.onerror = (err) => {
-            console.error("Error cargando imagen desde proxy:", img.src);
-            // Intento final sin proxy por si la imagen permite CORS nativo
-            const imgRetry = new Image();
-            imgRetry.crossOrigin = "anonymous";
-            imgRetry.src = url;
-            imgRetry.onload = () => res(imgRetry);
-            imgRetry.onerror = () => rej(err);
-        };
-    });
-}
     function copiarAlPortapapeles() {
         const area = document.getElementById('copyTextArea');
         area.select();
@@ -360,9 +387,7 @@ function cargarImg(url) {
         const canvases = document.querySelectorAll('#previewArea canvas');
         const pSelect = document.getElementById('productSelect');
         if (pSelect.value === "" || canvases.length === 0) return alert("Selecciona un producto y sincroniza.");
-        
         const productName = pSelect.options[pSelect.selectedIndex].text.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-
         canvases.forEach((canvas, i) => {
             const fileName = `${productName}_${i + 1}.png`;
             const dataUrl = canvas.toDataURL("image/png");
