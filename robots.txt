@@ -1,0 +1,13 @@
+# robots.txt — EKIPRO Guatemala
+# https://ekipro.rompecabezas.online/
+
+User-agent: *
+Disallow:
+Allow: /
+
+Disallow: /img/
+Disallow: /*.ico$
+Disallow: /*.png$
+Disallow: /*.jpg$
+
+Sitemap: https://ekipro.rompecabezas.online/sitemap.xml

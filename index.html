@@ -415,7 +415,57 @@
       .visor-principal { height: 250px; }
       #contenedor-filtros-sub { justify-content: flex-start; padding-left: 10px; padding-right: 10px; }
     }
+
+    /* ══ SEO STATIC SECTION ══ */
+    .seo-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: 20px; padding: 2.5rem 2rem; color: white; text-align: center; margin-bottom: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+    .seo-hero h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.3; }
+    .seo-hero p { font-size: 1rem; opacity: 0.88; max-width: 650px; margin: 0 auto 1.2rem; line-height: 1.6; }
+    .seo-hero-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+    .seo-hero-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 50px; padding: 6px 16px; font-size: 0.82rem; font-weight: 600; }
+    .seo-cats-title { text-align: center; font-size: 1.2rem; font-weight: 800; color: var(--text-dark, #1a1a2e); margin-bottom: 1.2rem; }
+    .seo-cats-title span { color: var(--accent, #e67e22); }
+    .seo-cats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 2rem; }
+    .seo-cat-card { background: white; border: 1.5px solid #e4eaf5; border-radius: 16px; padding: 1.2rem 1rem; text-align: center; box-shadow: 0 3px 12px rgba(0,0,0,0.04); transition: transform 0.18s, box-shadow 0.18s; }
+    .seo-cat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+    .seo-cat-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    .seo-cat-name { font-weight: 700; font-size: 0.88rem; color: #1a1a2e; margin-bottom: 0.3rem; }
+    .seo-cat-desc { font-size: 0.75rem; color: #666; line-height: 1.4; }
+    .seo-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 2rem; }
+    .seo-info-card { background: white; border: 1.5px solid #e4eaf5; border-radius: 16px; padding: 1.4rem 1.2rem; box-shadow: 0 3px 12px rgba(0,0,0,0.04); }
+    .seo-info-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem; }
+    .seo-info-card-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; flex-shrink: 0; }
+    .seo-info-card h3 { font-size: 0.92rem; font-weight: 700; color: #1a1a2e; line-height: 1.3; }
+    .seo-info-card ul { list-style: none; padding: 0; margin: 0; }
+    .seo-info-card ul li { font-size: 0.8rem; color: #666; padding: 4px 0; border-bottom: 1px solid #f0f0f0; line-height: 1.4; }
+    .seo-info-card ul li:last-child { border-bottom: none; }
+    .seo-info-card ul li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
+    .seo-about { background: #f8faff; border: 1.5px solid #e4eaf5; border-radius: 16px; padding: 1.8rem; margin-bottom: 2rem; }
+    .seo-about h3 { font-size: 1.05rem; font-weight: 800; color: #1a1a2e; margin-bottom: 0.8rem; }
+    .seo-about p { font-size: 0.85rem; color: #666; line-height: 1.7; margin-bottom: 0.6rem; }
+    .seo-about p:last-child { margin-bottom: 0; }
+    .seo-keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+    .seo-keyword { background: white; border: 1px solid #e4eaf5; border-radius: 50px; padding: 4px 12px; font-size: 0.73rem; color: #666; font-weight: 500; }
+    .seo-faq { margin-bottom: 2rem; }
+    .seo-faq h3 { font-size: 1.05rem; font-weight: 800; color: #1a1a2e; margin-bottom: 1rem; text-align: center; }
+    .seo-faq-item { background: white; border: 1.5px solid #e4eaf5; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 10px; }
+    .seo-faq-q { font-size: 0.88rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.4rem; }
+    .seo-faq-a { font-size: 0.8rem; color: #666; line-height: 1.6; }
+    @media (max-width: 600px) { .seo-hero h2 { font-size: 1.2rem; } .seo-cats-grid { grid-template-columns: repeat(2, 1fr); } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "EKIPRO Guatemala",
+    "description": "Tienda de maletas, mochilas y accesorios para viaje en Guatemala.",
+    "url": "https://ekipro.rompecabezas.online/",
+    "telephone": "+50241084481",
+    "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Guatemala", "addressCountry": "GT" },
+    "areaServed": "Guatemala",
+    "priceRange": "Q",
+    "hasOfferCatalog": { "@type": "OfferCatalog", "name": "Catálogo EKIPRO — Maletas y Accesorios de Viaje" }
+  }
+  </script>
 </head>
 <body oncontextmenu="return false;">
 
@@ -447,21 +497,81 @@
     </div>
     <h1 id="titulo-principal">EKIPRO Guatemala</h1>
 
-    <div id="seo-static-content" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 10px 20px;">
-      <p style="color:#555; font-size:0.95rem;">Bienvenidos a <strong>EKIPRO Guatemala</strong>, tu tienda de confianza para equipamiento de viaje. Explora nuestro catálogo de productos premium:</p>
-      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px;">
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Maletas Adultos</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Maletas Niños</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Cargadores Oficina</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Accesorios Maletas</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Mascotas</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Picnic</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Seguridad</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Descanso</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Organizador de Ropa</span>
-        <span style="background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid #ddd;">Cosmetiqueras</span>
+    <!-- ══ SECCIÓN ESTÁTICA SEO ══ -->
+    <section id="seo-static-content" aria-label="Información de EKIPRO Guatemala">
+
+      <div class="seo-hero">
+        <h2>🧳 Tienda de Maletas, Mochilas y Accesorios para Viaje en Guatemala</h2>
+        <p>EKIPRO Guatemala es tu tienda especializada en equipamiento para viajes y excursiones. Maletas, mochilas, cosmetiqueras, organizadores y accesorios de calidad. Envíos a toda Guatemala.</p>
+        <div class="seo-hero-badges">
+          <span class="seo-hero-badge">🚚 Envío a toda Guatemala</span>
+          <span class="seo-hero-badge">🧳 Maletas y Mochilas</span>
+          <span class="seo-hero-badge">💬 Atención por WhatsApp</span>
+          <span class="seo-hero-badge">✈️ Todo para tu viaje</span>
+        </div>
       </div>
-    </div>
+
+      <p class="seo-cats-title">Nuestras <span>Categorías de Productos</span></p>
+      <div class="seo-cats-grid">
+        <div class="seo-cat-card"><span class="seo-cat-icon">🧳</span><div class="seo-cat-name">Maletas para Adultos</div><div class="seo-cat-desc">Maletas de viaje con ruedas, rígidas y blandas en varios tamaños para adultos</div></div>
+        <div class="seo-cat-card"><span class="seo-cat-icon">🎒</span><div class="seo-cat-name">Maletas para Niños</div><div class="seo-cat-desc">Maletas infantiles con diseños divertidos, ligeras y resistentes para los más pequeños</div></div>
+        <div class="seo-cat-card"><span class="seo-cat-icon">🎽</span><div class="seo-cat-name">Mochilas</div><div class="seo-cat-desc">Mochilas para viaje, excursión, escuela y trabajo con múltiples compartimentos</div></div>
+        <div class="seo-cat-card"><span class="seo-cat-icon">💄</span><div class="seo-cat-name">Cosmetiqueras</div><div class="seo-cat-desc">Neceseres y cosmetiqueras para organizar tus artículos de belleza al viajar</div></div>
+        <div class="seo-cat-card"><span class="seo-cat-icon">👕</span><div class="seo-cat-name">Organizadores de Ropa</div><div class="seo-cat-desc">Cubos y organizadores para empacar y ordenar tu ropa dentro de la maleta</div></div>
+        <div class="seo-cat-card"><span class="seo-cat-icon">🔒</span><div class="seo-cat-name">Seguridad</div><div class="seo-cat-desc">Candados, cinturones de seguridad y accesorios para proteger tu equipaje</div></div>
+        <div class="seo-cat-card"><span class="seo-cat-icon">🔌</span><div class="seo-cat-name">Cargadores y Tecnología</div><div class="seo-cat-desc">Cargadores portátiles, adaptadores y accesorios tecnológicos para viajeros</div></div>
+        <div class="seo-cat-card"><span class="seo-cat-icon">🧺</span><div class="seo-cat-name">Picnic y Mascotas</div><div class="seo-cat-desc">Accesorios para picnic, camping y transporte de mascotas en tus aventuras</div></div>
+      </div>
+
+      <div class="seo-info-grid">
+        <div class="seo-info-card">
+          <div class="seo-info-card-header"><div class="seo-info-card-icon"><i class="bi bi-truck"></i></div><h3>Envíos a Todo Guatemala</h3></div>
+          <ul><li>Entrega en 24 horas en Ciudad de Guatemala</li><li>Envíos a todos los departamentos</li><li>Empaque protegido para tu equipaje</li><li>Rastreo de pedido incluido</li></ul>
+        </div>
+        <div class="seo-info-card">
+          <div class="seo-info-card-header"><div class="seo-info-card-icon"><i class="bi bi-shield-check"></i></div><h3>Formas de Pago</h3></div>
+          <ul><li>Efectivo contra entrega</li><li>Transferencia bancaria</li><li>Pago contra entrega departamentos</li><li>Tarjetas Visa (aplican condiciones)</li></ul>
+        </div>
+        <div class="seo-info-card">
+          <div class="seo-info-card-header"><div class="seo-info-card-icon"><i class="bi bi-people"></i></div><h3>¿Para Quién?</h3></div>
+          <ul><li>Viajeros frecuentes</li><li>Familias con niños</li><li>Estudiantes y profesionales</li><li>Excursionistas y aventureros</li><li>Amantes de las mascotas</li></ul>
+        </div>
+        <div class="seo-info-card">
+          <div class="seo-info-card-header"><div class="seo-info-card-icon"><i class="bi bi-star"></i></div><h3>¿Por Qué EKIPRO?</h3></div>
+          <ul><li>Productos de calidad premium</li><li>Precios directos sin intermediarios</li><li>Catálogo actualizado constantemente</li><li>Atención personalizada por WhatsApp</li></ul>
+        </div>
+      </div>
+
+      <div class="seo-about">
+        <h3>✈️ Sobre EKIPRO Guatemala</h3>
+        <p>EKIPRO es tu tienda guatemalteca especializada en equipamiento para viajes, excursiones y aventuras. Contamos con una amplia variedad de maletas para adultos y niños, mochilas, cosmetiqueras, organizadores de ropa, accesorios de seguridad y todo lo que necesitás para viajar cómodo y organizado.</p>
+        <p>Nuestros productos son ideales para viajeros frecuentes, familias, estudiantes y aventureros que buscan calidad y funcionalidad a precios accesibles. Desde una maleta de cabina hasta un set completo de organizadores, en EKIPRO encontrás todo para tu próximo viaje.</p>
+        <p>Realizamos envíos a Ciudad de Guatemala y todos los departamentos del país. Escribinos por WhatsApp para asesoría personalizada y encontrar el producto ideal para tu aventura.</p>
+        <div class="seo-keywords">
+          <span class="seo-keyword">maletas Guatemala</span>
+          <span class="seo-keyword">mochilas viaje Guatemala</span>
+          <span class="seo-keyword">accesorios viaje GT</span>
+          <span class="seo-keyword">maletas con ruedas Guatemala</span>
+          <span class="seo-keyword">equipaje Guatemala</span>
+          <span class="seo-keyword">cosmetiqueras GT</span>
+          <span class="seo-keyword">organizadores maleta Guatemala</span>
+          <span class="seo-keyword">EKIPRO Guatemala</span>
+          <span class="seo-keyword">tienda viaje Guatemala</span>
+          <span class="seo-keyword">maletas niños Guatemala</span>
+        </div>
+      </div>
+
+      <div class="seo-faq">
+        <h3>❓ Preguntas Frecuentes</h3>
+        <div class="seo-faq-item"><div class="seo-faq-q">¿Hacen envíos a todos los departamentos de Guatemala?</div><div class="seo-faq-a">Sí, enviamos a toda Guatemala. En Ciudad de Guatemala entregamos en 24 horas. Para departamentos coordinamos el envío con rastreo incluido.</div></div>
+        <div class="seo-faq-item"><div class="seo-faq-q">¿Tienen maletas para niños?</div><div class="seo-faq-a">Sí, contamos con maletas infantiles en varios diseños y colores, ligeras y resistentes, perfectas para que los niños viajen con su propio equipaje.</div></div>
+        <div class="seo-faq-item"><div class="seo-faq-q">¿Qué tamaños de maletas tienen disponibles?</div><div class="seo-faq-a">Tenemos maletas de cabina (carry-on), medianas y grandes. Todas con ruedas y diseños modernos para diferentes tipos de viaje.</div></div>
+        <div class="seo-faq-item"><div class="seo-faq-q">¿Son buenos como regalo?</div><div class="seo-faq-a">Son el regalo perfecto para cualquier ocasión: cumpleaños, graduaciones, día del padre, día de la madre o para quien esté próximo a viajar.</div></div>
+        <div class="seo-faq-item"><div class="seo-faq-q">¿Cómo puedo hacer un pedido?</div><div class="seo-faq-a">Seleccioná el producto en el catálogo o escribinos directamente por WhatsApp. Te asesoramos y coordinamos la entrega a tu domicilio.</div></div>
+      </div>
+
+    </section>
+    <!-- ══ FIN SECCIÓN SEO ══ -->
 
     <p class="subtitle-seo" id="texto-subtitulo">Equipamiento para Viajes y Excursiones</p>
 
