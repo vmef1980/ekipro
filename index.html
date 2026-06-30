@@ -57,12 +57,13 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      -webkit-touch-callout: none;
+      -webkit-touch-callout: none; 
     }
 
     img {
       -webkit-user-drag: none;
       pointer-events: none;
+      
     }
 
     /* Re-habilitar eventos en elementos interactivos */
@@ -711,6 +712,17 @@
       return lineas;
     }
 
+    function normalizarImagenDrive(url) {
+      if (!url) return url;
+      url = url.trim();
+      // Detecta cualquier formato de Google Drive y extrae el ID del archivo
+      let match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (match && url.includes('drive.google.com')) {
+        return `https://lh3.googleusercontent.com/d/${match[1]}`;
+      }
+      return url;
+    }
+
     async function cargarDatos() {
       try {
         const res = await fetch(CONFIG.csvUrl);
@@ -720,8 +732,8 @@
         productos = filas.slice(1).map(f => ({
           id: f[0],
           titulo: f[1],
-          imagen: f[2],
-          imagenes: f[3] ? f[3].split('|').map(i => i.trim()) : [],
+          imagen: normalizarImagenDrive(f[2]),
+          imagenes: f[3] ? f[3].split('|').map(i => normalizarImagenDrive(i.trim())) : [],
           categoria: { id: f[4], nombre: f[5] },
           subcategoria: f[7],
           descripcion: f[8],
