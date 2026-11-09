@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <meta name="robots" content="index, follow, noimageindex" />
+  <meta name="robots" content="noindex, follow" />
   <meta name="theme-color" id="meta-theme-color" content="#003772" />
   
-  <title id="page-title">Cargando Catálogo Profesional...</title>
-  <meta name="description" id="meta-desc" content="Tu aliado en suministros para Cocinas, Restaurantes, Hoteles y Bares en Guatemala." />
+  <title id="page-title">EKIPRO | Maletas, mochilas y accesorios de viaje en Guatemala</title>
+  <meta name="description" id="meta-desc" content="EKIPRO: maletas, mochilas y accesorios para viajeros en Guatemala. Entrega en 24 h en la capital, envíos a todo el país y pago contra entrega." />
   
+  <link rel="canonical" href="https://ekipro.rompecabezas.online/" />
+  <meta property="og:url" content="https://ekipro.rompecabezas.online/catalogo.html" />
+  <meta property="og:image" content="https://ekipro.rompecabezas.online/img/og-ekipro.jpg" />
+
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="format-detection" content="telephone=no" />
@@ -296,19 +300,20 @@
 
   <script type="module">
     const CONFIG = {
-      nombreNegocio: "Flamax",
-      tituloPagina: "Flamax | Catálogo Oficial 2026",
-      eslogan: "De todo para Cocinas, Restaurantes, Hoteles y Bares",
-      metaDescripcion: "Tu aliado en suministros para Cocinas, Restaurantes, Hoteles y Bares en Guatemala.",
-      copyright: "© 2026 Flamax",
+      nombreNegocio: "EKIPRO",
+      tituloPagina: "EKIPRO | Maletas, mochilas y accesorios de viaje en Guatemala",
+      eslogan: "Maletas, mochilas y gadgets de viaje para tu próxima aventura",
+      metaDescripcion: "EKIPRO: maletas, mochilas y accesorios para viajeros en Guatemala. Entrega en 24 h en la capital, envíos a todo el país y pago contra entrega.",
+      copyright: "© 2026 EKIPRO",
       developer: "Puzzle Solutions",
       ubicacion: "Ciudad de Guatemala, GT",
       telefonoWhatsApp: "50241084481",
-      mensajeWhatsApp: "Hola, deseo solicitar más información sobre los productos del catálogo.", 
+      email: "",
+      mensajeWhatsApp: "Hola EKIPRO, deseo solicitar más información sobre los productos del catálogo de maletas y accesorios de viaje.", 
       simboloMoneda: "Q",
-      logoImg: "img/Flamax-v1.png",
-      faviconImg: "img/Flamax-v1.ico",
-      csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwVpHIAUk9o5t1bGr2TEn7TcSLvf_XGbX2-9irqECUDFHgdm_TjSSifw4VDKHTfMiX-dZmNz6cqXk_/pub?output=csv",
+      logoImg: "img/EKIPRO.png",
+      faviconImg: "img/EKIPRO.ico",
+      csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSHAY87rIFAPkwYS9bJvT80ydkUuxn1kTd6aS-Y7mM-1zoHNCqGewaL-NiYtyyFxjFLM4p5iSTA_bs4/pub?output=csv",
       colores: {
         primario: "#003772",
         primarioOscuro: "#9fc5e8",
@@ -316,9 +321,10 @@
         fondoGradiente: "linear-gradient(135deg, #fff8f0 0%, #e6f7ff 100%)"
       },
       redesSociales: [
-        { icon: "bi-facebook", url: "#", label: "Facebook" },
-        { icon: "bi-instagram", url: "#", label: "Instagram" },
-        { icon: "bi-tiktok", url: "#", label: "TikTok" }
+        // Agrega las redes de EKIPRO cuando existan:
+        // { icon: "bi-facebook", url: "https://www.facebook.com/...", label: "Facebook" },
+        // { icon: "bi-instagram", url: "https://www.instagram.com/...", label: "Instagram" },
+        // { icon: "bi-tiktok", url: "https://www.tiktok.com/@...", label: "TikTok" }
       ],
       badges: [
         {
@@ -431,6 +437,7 @@
         <div class="social-icons">
           ${CONFIG.redesSociales.map(r => `<a href="${r.url}" target="_blank"><i class="${r.icon}"></i></a>`).join('')}
           <a href="${whatsappURL}" target="_blank"><i class="bi bi-whatsapp"></i></a>
+          ${CONFIG.email ? `<a href="mailto:${CONFIG.email}"><i class="bi bi-envelope"></i></a>` : ""}
         </div>
         <p><strong>${CONFIG.nombreNegocio}</strong></p>
         <p style="opacity:0.7">${CONFIG.copyright}</p>
@@ -439,6 +446,7 @@
       document.getElementById("footer-social-links").innerHTML = `
         ${CONFIG.redesSociales.map(r => `<a href="${r.url}" target="_blank" style="font-size:0.75rem;"><i class="${r.icon}"></i> ${r.label}</a>`).join('')}
         <a href="${whatsappURL}" target="_blank" style="font-size:0.75rem;"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+        ${CONFIG.email ? `<a href="mailto:${CONFIG.email}" style="font-size:0.75rem;"><i class="bi bi-envelope"></i> ${CONFIG.email}</a>` : ""}
       `;
       
       document.getElementById("f-copy").textContent = CONFIG.copyright;
