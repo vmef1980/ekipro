@@ -97,7 +97,8 @@ def main():
 
         subs = sorted(cat["subs"])
         # Igual que el sitio: si la única subcategoría se llama como la categoría, no tiene página propia
-        if INCLUIR_SUBCATEGORIAS and not (len(subs) == 1 and slugify(subs[0]) == slug):
+        # Solo vale la pena una URL por subcategoría si la categoría tiene 2 o más
+        if INCLUIR_SUBCATEGORIAS and len(subs) > 1:
             for sub in subs:
                 urls.append((f"{URL_SITIO}?cat={slug}&sub={slugify(sub)}", "weekly", "0.6"))
                 total_subs += 1
