@@ -1,0 +1,140 @@
+{
+  "_instrucciones": "Cada grupo es una lista de palabras que significan lo mismo. Si un producto contiene cualquiera de ellas (en nombre, subcategoría o descripción), el buscador lo encuentra con cualquier otra del grupo, y su página muestra las demás como 'También lo buscan como'. Escribe en minúsculas; los acentos no importan. Agrega grupos o palabras cuando quieras.",
+  "grupos": [
+    [
+      "maleta",
+      "valija",
+      "equipaje",
+      "trolley",
+      "maletín"
+    ],
+    [
+      "mochila",
+      "morral",
+      "bulto",
+      "backpack"
+    ],
+    [
+      "bolso",
+      "bolsa",
+      "cartera"
+    ],
+    [
+      "cosmetiquera",
+      "neceser",
+      "estuche de maquillaje",
+      "organizador de cosméticos",
+      "washbag",
+      "bolsa de aseo"
+    ],
+    [
+      "cangurera",
+      "riñonera",
+      "canguro",
+      "bolso de cintura"
+    ],
+    [
+      "candado",
+      "candado tsa",
+      "cerradura"
+    ],
+    [
+      "almohada de viaje",
+      "almohada para cuello",
+      "cojín de viaje",
+      "almohada cervical"
+    ],
+    [
+      "etiqueta",
+      "tag",
+      "identificador de maleta"
+    ],
+    [
+      "organizador de ropa",
+      "cubos de viaje",
+      "packing cubes",
+      "organizador de maleta"
+    ],
+    [
+      "báscula",
+      "pesa de maletas",
+      "balanza"
+    ],
+    [
+      "paraguas",
+      "sombrilla"
+    ],
+    [
+      "capa",
+      "impermeable",
+      "poncho",
+      "chumpa para lluvia"
+    ],
+    [
+      "botella",
+      "termo",
+      "pachón",
+      "tumbler",
+      "vaso térmico"
+    ],
+    [
+      "pastillero",
+      "organizador de pastillas"
+    ],
+    [
+      "adaptador",
+      "enchufe universal",
+      "convertidor de enchufe"
+    ],
+    [
+      "lonchera",
+      "bolsa térmica",
+      "hielera"
+    ],
+    [
+      "laptop",
+      "computadora",
+      "portátil",
+      "notebook"
+    ],
+    [
+      "billetera",
+      "monedero",
+      "tarjetero"
+    ],
+    [
+      "correa",
+      "strap",
+      "cinta"
+    ],
+    [
+      "antifaz",
+      "tapaojos",
+      "máscara para dormir"
+    ],
+    [
+      "pasaporte",
+      "porta pasaporte",
+      "funda de pasaporte"
+    ],
+    [
+      "zapatos",
+      "calzado"
+    ],
+    [
+      "niños",
+      "infantil",
+      "niñas",
+      "kids"
+    ],
+    [
+      "botiquín",
+      "primeros auxilios"
+    ],
+    [
+      "mascotas",
+      "perro",
+      "gato"
+    ]
+  ]
+}
